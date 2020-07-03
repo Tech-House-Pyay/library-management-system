@@ -10,4 +10,8 @@ router.get('/home', function(req, res, next) {
   res.render('home', { title: 'Express' });
 });
 
+router.get("/uhome", function(req,res,next){
+  res.render("uhome");
+})
+
 module.exports = router;
