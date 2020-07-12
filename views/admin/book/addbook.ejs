@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <% include ../../partialA/head %>
+    <style media="screen">
+      .img-label img {
+        width: 25rem;
+      }
+      .img-label {
+        cursor: pointer;
+      }
+      .img-container img {
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_navbar.html -->
+      <% include ../../partialA/navbar %>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <% include ../../partialA/sidebar %>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add Book</h4>
+                    <form
+                      class="forms-sample"
+                      action="/admin/addBook"
+                      method="POST"
+                      enctype="multipart/form-data"
+                    >
+                      <div class="form-group">
+                        <label for="exampleInputName1">Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="exampleInputName1"
+                          placeholder="Name"
+                          name="name"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="auth_name">Author Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="auth_name"
+                          placeholder="Auth Name"
+                          name="auth_name"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="pushDate">Publish Date</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="pushDate"
+                          placeholder="Publish Date"
+                          name="pushDate"
+                          required
+                        />
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="book_author"
+                          >Image <span class="text-danger">*</span></label
+                        >
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label
+                              class="img-label"
+                              data-toggle="tooltip"
+                              title="Select photo"
+                            >
+                              <img
+                                class="rounded"
+                                id="photo"
+                                src="/images/upload.png"
+                                alt="Image"
+                              />
+                              <input
+                                type="file"
+                                class="sr-only"
+                                id="uploadImg"
+                                name="uploadImg"
+                                accept="images/*"
+                              />
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="copy">Copy Count</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="copy"
+                          placeholder="Copy Count"
+                          name="copy"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="mainCat">Main Category</label>
+                        <select
+                          class="form-control"
+                          id="mainCat"
+                          name="mainCat"
+                          required
+                        >
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="subCat">Sub Category</label>
+                        <select
+                          class="form-control"
+                          id="subCat"
+                          name="subCat"
+                          required
+                        >
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="rTime">Reading Time</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="rTime"
+                          placeholder="Reading Time"
+                          name="rTime"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="shelf">Book Shelf</label>
+                        <select
+                          name="shelf"
+                          class="form-control"
+                          id="shelf"
+                          required
+                        >
+                          <option value="A1">A1</option>
+                          <option value="A2">A2</option>
+                          <option value="A3">A3</option>
+                          <option value="A4">A4</option>
+                          <option value="A5">A5</option>
+                          <option value="A6">A6</option>
+                          <option value="A7">A7</option>
+                          <option value="A8">A8</option>
+                          <option value="A9">A9</option>
+                          <option value="B1">B1</option>
+                          <option value="B2">B2</option>
+                          <option value="B3">B3</option>
+                          <option value="B4">B4</option>
+                          <option value="B5">B5</option>
+                          <option value="B6">B6</option>
+                          <option value="B7">B7</option>
+                          <option value="B8">B8</option>
+                          <option value="B9">B9</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="desc">Description</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="desc"
+                          placeholder="Description"
+                          name="desc"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="barcode">Barcode</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="barcode"
+                          placeholder="Barcode"
+                          name="barcode"
+                          required
+                        />
+                      </div>
+
+                      <button type="submit" class="btn btn-primary mr-2">
+                        Submit
+                      </button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <% include ../../partialA/footer %>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <!-- End custom js for this page -->
+  </body>
+  <script>
+    var categories = [<%- categories%>];
+    console.log(categories);
+
+    addOptions('mainCat', categories);
+    $("#mainCat").on('change', function(){
+        var sub = $.grep( categories, function( n, i ) {
+          return n.mainCat == $("#mainCat").val();
+        });
+        addOptions('subCat', sub);
+    });
+
+    function addOptions(id, arr){
+        $("#"+id).children().remove();
+        for(var idx in arr){
+            if(idx == 0) $("#"+id).append(new Option('Select '+((id == 'mainCat')? "Main Category": "Sub Category"), ''));
+            if(idx == 0 || arr[idx][id] != arr[idx-1][id]){
+                $("#"+id).append(new Option(((id == 'mainCat')? arr[idx][id]:arr[idx][id]),arr[idx][id]));
+
+            }
+        }
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#photo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadImg").change(function(){
+        readURL(this);
+        console.log('calll');
+    });
+  </script>
+</html>
