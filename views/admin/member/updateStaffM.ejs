@@ -19,20 +19,21 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add Staff Member</h4>
+                    <h4 class="card-title">Update Staff Member</h4>
                     <form
                       class="forms-sample"
-                      action="/admin/addstaffM"
+                      action="/admin/updatestaffM"
                       method="POST"
                       name="frm"
                     >
+                      <input type="hidden" name="id" value="<%= staff._id %>">
                       <div class="form-group">
                         <label for="exampleInputName1">Name</label>
                         <input
                           type="text"
                           class="form-control"
                           id="exampleInputName1"
-                          placeholder="Name"
+                          value="<%= staff.name %>"
                           name="name"
                           required
                         />
@@ -43,7 +44,7 @@
                           type="text"
                           class="form-control"
                           id="rfid"
-                          placeholder="RFID No"
+                          value="<%= staff.rfid %>"
                           name="rfid"
                           required
                         />
@@ -56,7 +57,6 @@
                           id="exampleInputPassword4"
                           placeholder="Password"
                           name="password"
-                          required
                         />
                       </div>
                       <div class="form-group">
@@ -67,17 +67,17 @@
                           name="dept"
                           required
                         >
-                          <option value="Civil">Civil</option>
-                          <option value="EC">EC</option>
-                          <option value="EP">EP</option>
-                          <option value="MP">MP</option>
-                          <option value="MC">MC</option>
-                          <option value="IT">IT</option>
-                          <option value="ENGLISH">English</option>
-                          <option value="MATH">Math</option>
-                          <option value="MYANMAR">Myanmar</option>
-                          <option value="PHYSIC">Physic</option>
-                          <option value="CHEMISTRY">Chemistry</option>
+                          <option value="Civil" <%= (staff.dept == "Civil")? "selected":"" %> >Civil</option>
+                          <option value="EC" <%= (staff.dept == "EC")? "selected":"" %> >EC</option>
+                          <option value="EP" <%= (staff.dept == "EP")? "selected":"" %> >EP</option>
+                          <option value="MP" <%= (staff.dept == "MP")? "selected":"" %> >MP</option>
+                          <option value="MC" <%= (staff.dept == "MC")? "selected":"" %> >MC</option>
+                          <option value="IT" <%= (staff.dept == "IT")? "selected":"" %> >IT</option>
+                          <option value="ENGLISH" <%= (staff.dept == "ENGLISH")? "selected":"" %> >English</option>
+                          <option value="MATH" <%= (staff.dept == "MATH")? "selected":"" %> >Math</option>
+                          <option value="MYANMAR" <%= (staff.dept == "MYANMAR")? "selected":"" %> >Myanmar</option>
+                          <option value="PHYSIC" <%= (staff.dept == "PHYSIC")? "selected":"" %> >Physic</option>
+                          <option value="CHEMISTRY" <%= (staff.dept == "CHEMISTRY")? "selected":"" %> >Chemistry</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -89,18 +89,18 @@
                           required
                         >
                           <option value="">Select Occupation</option>
-                          <option value="Professer">Professer</option>
-                          <option value="Associate Professer"
+                          <option value="Professer" <%= (staff.occupation == "Professer")? "selected":"" %> >Professer</option>
+                          <option value="Associate Professer" <%= (staff.occupation == "Associate Professer")? "selected":"" %>
                             >Associate Professer</option
                           >
-                          <option value="Lecturer">Lecturer</option>
-                          <option value="Assistant Lecturer"
+                          <option value="Lecturer" <%= (staff.occupation == "Lecturer")? "selected":"" %>>Lecturer</option>
+                          <option value="Assistant Lecturer" <%= (staff.occupation == "Assistant Lecturer")? "selected":"" %>
                             >Assistant Lecturer</option
                           >
-                          <option value="Tutor">Tutor</option>
-                          <option value="Demonstrator">Demonstrator</option>
-                          <option value="Officer">Officer</option>
-                          <option value="Others">Others</option>
+                          <option value="Tutor" <%= (staff.occupation == "Tutor")? "selected":"" %> >Tutor</option>
+                          <option value="Demonstrator" <%= (staff.occupation == "Demonstrator")? "selected":"" %> >Demonstrator</option>
+                          <option value="Officer" <%= (staff.occupation == "Officer")? "selected":"" %> >Officer</option>
+                          <option value="Others" <%= (staff.occupation == "Others")? "selected":"" %> >Others</option>
                         </select>
                       </div>
 
@@ -110,14 +110,24 @@
                           type="number"
                           class="form-control"
                           id="phone"
-                          placeholder="Phone No"
+                          value="<%= staff.phone %>"
                           name="phone"
                           required
                         />
                       </div>
 
+                      <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="form-control">
+                          <option value="1" <%= (staff.status == '1')? "selected":"" %> >Active</option>
+                          <option value="0" <%= (staff.status == '0')? "selected":"" %> >Warning</option>
+                          <option value="-1" <%= (staff.status == '-1')? "selected":"" %> >Inactive</option>
+                          <option value="-2" <%= (staff.status == '-2')? "selected":"" %> >Block</option>
+                        </select>
+                      </div>
+
                       <button
-                        type="button"
+                        type="submit"
                         id="subBtn"
                         class="btn btn-primary mr-2"
                       >
@@ -162,43 +172,43 @@
         }
       });
     });
-    $("#rfid").blur(function () {
-      var data = { rfid: $(this).val() };
-      $.ajax({
-        url: "/admin/checkMemSta",
-        data: data,
-        type: "POST",
-        success: function (result) {
-          if (result.status) {
-            alert("RFID is duplicated");
-            $("#rfid").val("");
-            $("#rfid").focus();
-          }
-        },
-      });
-    });
-    $("#subBtn").click(function () {
-      var datap = {
-        name: $("#exampleInputName1").val(),
-        dept: $("#dept").val(),
-        ocpt: $("#ocpt").val(),
-      };
-      $.ajax({
-        url: "/admin/checkRegSta",
-        data: datap,
-        type: "POST",
-        success: function (result) {
-          if (result.status) {
-            alert("Staff is already exist");
-            $("#exampleInputName1").val("");
-            $("#dept").val("");
-            $("#ocpt").val("");
-            $("#exampleInputName1").focus();
-          } else {
-            frm.submit();
-          }
-        },
-      });
-    });
+    // $("#rfid").blur(function () {
+    //   var data = { rfid: $(this).val() };
+    //   $.ajax({
+    //     url: "/admin/checkMemSta",
+    //     data: data,
+    //     type: "POST",
+    //     success: function (result) {
+    //       if (result.status) {
+    //         alert("RFID is duplicated");
+    //         $("#rfid").val("");
+    //         $("#rfid").focus();
+    //       }
+    //     },
+    //   });
+    // });
+    // $("#subBtn").click(function () {
+    //   var datap = {
+    //     name: $("#exampleInputName1").val(),
+    //     dept: $("#dept").val(),
+    //     ocpt: $("#ocpt").val(),
+    //   };
+    //   $.ajax({
+    //     url: "/admin/checkRegSta",
+    //     data: datap,
+    //     type: "POST",
+    //     success: function (result) {
+    //       if (result.status) {
+    //         alert("Staff is already exist");
+    //         $("#exampleInputName1").val("");
+    //         $("#dept").val("");
+    //         $("#ocpt").val("");
+    //         $("#exampleInputName1").focus();
+    //       } else {
+    //         frm.submit();
+    //       }
+    //     },
+    //   });
+    // });
   </script>
 </html>

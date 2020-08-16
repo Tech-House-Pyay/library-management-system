@@ -27,9 +27,11 @@
                           <th>Name</th>
                           <th>Major</th>
                           <th>Year</th>
-                          <th>Roll Number</th>
+                          <th>Roll No</th>
                           <th>RFID</th>
-                          <th>Joined</th>
+                          <th>Status</th>
+                          <th>Phone No</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -40,7 +42,31 @@
                           <td><%= students[i].year %></td>
                           <td><%= students[i].rollNo %></td>
                           <td><%= students[i].rfid %></td>
-                          <td><%= students[i].inserted_date %></td>
+                          <td>
+                            <% if(students[i].status == "1"){%>
+                            <span class="badge badge-success">Active</span>
+                            <%}else if(students[i].status == "0"){%>
+                            <span class="badge badge-warning">Warning</span>
+                            <%}else if(students[i].status == "-1"){%>
+                            <span class="badge badge-secondary">Inactive</span>
+                            <%}else{%>
+                            <span class="badge badge-danger">Block</span>
+                            <%}%>
+                          </td>
+                          <td><%= students[i].phone %></td>
+                          <td>
+                            <a
+                              href="/admin/stuUpdate/<%= students[i]._id %>"
+                              class="btn btn-warning mr-3"
+                              role="button"
+                              >Update</a
+                            ><a
+                              href="/admin/stuInactive/<%= students[i]._id %>"
+                              class="btn btn-secondary"
+                              role="button"
+                              >Inactive</a
+                            >
+                          </td>
                         </tr>
                         <%}%>
                       </tbody>
@@ -48,9 +74,11 @@
                         <th>Name</th>
                         <th>Major</th>
                         <th>Year</th>
-                        <th>Roll Number</th>
+                        <th>Roll No</th>
                         <th>RFID</th>
-                        <th>Joined</th>
+                        <th>Status</th>
+                        <th>Phone No</th>
+                        <th>Action</th>
                       </tfoot>
                     </table>
                   </div>

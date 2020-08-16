@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <% include ../../partialA/head %>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_navbar.html -->
+      <% include ../../partialA/navbar %>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <% include ../../partialA/sidebar %>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-2"></div>
+              <div class="col-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title text-center">Check RFID Here</h4>
+                    <form class="forms-sample">
+                      <div class="form-group">
+                        <label for="rfid">Member RFID Code</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="rfid"
+                          placeholder="RFID Code Here"
+                          name="rfid"
+                          required
+                        />
+                      </div>
+
+                      <button
+                        type="button"
+                        id="check"
+                        class="btn btn-primary mr-2 btn-block"
+                      >
+                        Check
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <% include ../../partialA/footer %>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <!-- End custom js for this page -->
+  </body>
+  <script>
+    $("#check").click(function () {
+      var data = { rfid: $("#rfid").val() };
+      $.ajax({
+        url: "/admin/checkAuth",
+        data: data,
+        type: "POST",
+        success: function (result) {
+          console.log(result);
+
+          if (result.data != null) {
+            alert(result);
+          }
+        },
+      });
+    });
+  </script>
+</html>

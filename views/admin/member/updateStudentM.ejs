@@ -19,21 +19,22 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add Student Member</h4>
+                    <h4 class="card-title">Update Student Member</h4>
                     <!-- <p class="card-description">Basic form elements</p> -->
                     <form
                       class="forms-sample"
-                      action="/admin/addstuM"
+                      action="/admin/updatestuM"
                       method="POST"
                       name="frm"
                     >
+                    <input type="hidden" name="id" value="<%= student._id %>">
                       <div class="form-group">
                         <label for="exampleInputName1">Name</label>
                         <input
                           type="text"
                           class="form-control"
                           id="exampleInputName1"
-                          placeholder="Name"
+                          value="<%= student.name %>"
                           name="name"
                           required
                         />
@@ -44,7 +45,7 @@
                           type="text"
                           class="form-control"
                           id="rfid"
-                          placeholder="RFID No"
+                          value="<%= student.rfid %>"
                           name="rfid"
                           required
                         />
@@ -57,7 +58,6 @@
                           id="exampleInputPassword4"
                           placeholder="Password"
                           name="password"
-                          required
                         />
                       </div>
                       <div class="form-group">
@@ -68,12 +68,12 @@
                           name="major"
                           required
                         >
-                          <option value="Civil">Civil</option>
-                          <option value="EC">EC</option>
-                          <option value="EP">EP</option>
-                          <option value="MP">MP</option>
-                          <option value="MC">MC</option>
-                          <option value="IT">IT</option>
+                          <option value="Civil" <%= (student.major == "Civil")? "selected":"" %> >Civil</option>
+                          <option value="EC" <%= (student.major == "EC")? "selected":"" %> >EC</option>
+                          <option value="EP" <%= (student.major == "EP")? "selected":"" %> >EP</option>
+                          <option value="MP" <%= (student.major == "MP")? "selected":"" %> >MP</option>
+                          <option value="MC" <%= (student.major == "MC")? "selected":"" %> >MC</option>
+                          <option value="IT" <%= (student.major == "IT")? "selected":"" %> >IT</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -84,12 +84,12 @@
                           name="year"
                           required
                         >
-                          <option value="1BE">1BE</option>
-                          <option value="2BE">2BE</option>
-                          <option value="3BE">3BE</option>
-                          <option value="4BE">4BE</option>
-                          <option value="5BE">5BE</option>
-                          <option value="6BE">6BE</option>
+                          <option value="1BE" <%= (student.year == "1BE")? "selected":"" %> >1BE</option>
+                          <option value="2BE" <%= (student.year == "2BE")? "selected":"" %> >2BE</option>
+                          <option value="3BE" <%= (student.year == "3BE")? "selected":"" %> >3BE</option>
+                          <option value="4BE" <%= (student.year == "4BE")? "selected":"" %> >4BE</option>
+                          <option value="5BE" <%= (student.year == "5BE")? "selected":"" %> >5BE</option>
+                          <option value="6BE" <%= (student.year == "6BE")? "selected":"" %> >6BE</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -98,7 +98,7 @@
                           type="number"
                           class="form-control"
                           id="roll"
-                          placeholder="Roll No"
+                          value="<%= student.rollNo %>"
                           name="roll"
                           required
                         />
@@ -109,14 +109,24 @@
                           type="text"
                           class="form-control"
                           id="phone"
-                          placeholder="Phone No"
+                          value="<%= student.phone %>"
                           name="phone"
                           required
                         />
                       </div>
 
+                      <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="form-control">
+                          <option value="1" <%= (student.status == '1')? "selected":"" %> >Active</option>
+                          <option value="0" <%= (student.status == '0')? "selected":"" %> >Warning</option>
+                          <option value="-1" <%= (student.status == '-1')? "selected":"" %> >Inactive</option>
+                          <option value="-2" <%= (student.status == '-2')? "selected":"" %> >Block</option>
+                        </select>
+                      </div>
+
                       <input
-                        type="button"
+                        type="submit"
                         id="subBtn"
                         class="btn btn-primary mr-2"
                         value="Submit"
@@ -164,43 +174,43 @@
         }
       });
     });
-    $("#rfid").blur(function () {
-      var data = { rfid: $(this).val() };
-      $.ajax({
-        url: "/admin/checkMemStu",
-        data: data,
-        type: "POST",
-        success: function (result) {
-          if (result.status) {
-            alert("RFID is duplicated");
-            $("#rfid").val("");
-            $("#rfid").focus();
-          }
-        },
-      });
-    });
-    $("#subBtn").click(function () {
-      var datap = {
-        major: $("#major").val(),
-        year: $("#year").val(),
-        roll: $("#roll").val(),
-      };
-      $.ajax({
-        url: "/admin/checkRegStu",
-        data: datap,
-        type: "POST",
-        success: function (result) {
-          if (result.status) {
-            alert("Student is already exist");
-            $("#major").val("");
-            $("#year").val("");
-            $("#roll").val("");
-            $("#major").focus();
-          } else {
-            frm.submit();
-          }
-        },
-      });
-    });
+    // $("#rfid").blur(function () {
+    //   var data = { rfid: $(this).val() };
+    //   $.ajax({
+    //     url: "/admin/checkMemStu",
+    //     data: data,
+    //     type: "POST",
+    //     success: function (result) {
+    //       if (result.status) {
+    //         alert("RFID is duplicated");
+    //         $("#rfid").val("");
+    //         $("#rfid").focus();
+    //       }
+    //     },
+    //   });
+    // });
+    // $("#subBtn").click(function () {
+    //   var datap = {
+    //     major: $("#major").val(),
+    //     year: $("#year").val(),
+    //     roll: $("#roll").val(),
+    //   };
+    //   $.ajax({
+    //     url: "/admin/checkRegStu",
+    //     data: datap,
+    //     type: "POST",
+    //     success: function (result) {
+    //       if (result.status) {
+    //         alert("Student is already exist");
+    //         $("#major").val("");
+    //         $("#year").val("");
+    //         $("#roll").val("");
+    //         $("#major").focus();
+    //       } else {
+    //         frm.submit();
+    //       }
+    //     },
+    //   });
+    // });
   </script>
 </html>

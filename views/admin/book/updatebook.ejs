@@ -31,7 +31,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add Book</h4>
+                    <h4 class="card-title">Update Book</h4>
                     <form
                       class="forms-sample"
                       action="#"
@@ -40,13 +40,14 @@
                       enctype="multipart/form-data"
                       name="frm"
                     >
+                    <input type="hidden" name="id" value="<%= book._id %>">
                       <div class="form-group">
                         <label for="exampleInputName1">Name</label>
                         <input
                           type="text"
                           class="form-control"
                           id="exampleInputName1"
-                          placeholder="Name"
+                          value="<%= book.name %>"
                           name="name"
                           required
                         />
@@ -57,7 +58,7 @@
                           type="text"
                           class="form-control"
                           id="auth_name"
-                          placeholder="Auth Name"
+                          value="<%= book.author_name %>"
                           name="auth_name"
                           required
                         />
@@ -68,7 +69,7 @@
                           type="date"
                           class="form-control"
                           id="pushDate"
-                          placeholder="Publish Date"
+                          value="<%= book.pushDate%>"
                           name="pushDate"
                           required
                         />
@@ -87,7 +88,7 @@
                               <img
                                 class="rounded"
                                 id="photo"
-                                src="/images/upload.png"
+                                src="<%= book.imgUrl %>"
                                 alt="Image"
                               />
                               <input
@@ -107,7 +108,7 @@
                           type="number"
                           class="form-control"
                           id="copy"
-                          placeholder="Copy Count"
+                          value="<%= book.copy %>"
                           name="copy"
                           required
                         />
@@ -139,7 +140,7 @@
                           type="number"
                           class="form-control"
                           id="rTime"
-                          placeholder="Borrowing Duration"
+                          value="<%= book.rTime %>"
                           name="rTime"
                           required
                         />
@@ -150,7 +151,7 @@
                           type="number"
                           class="form-control"
                           id="pages"
-                          placeholder="Pages"
+                          value="<%= book.pages %>"
                           name="pages"
                           required
                         />
@@ -163,24 +164,24 @@
                           id="shelf"
                           required
                         >
-                          <option value="A1">A1</option>
-                          <option value="A2">A2</option>
-                          <option value="A3">A3</option>
-                          <option value="A4">A4</option>
-                          <option value="A5">A5</option>
-                          <option value="A6">A6</option>
-                          <option value="A7">A7</option>
-                          <option value="A8">A8</option>
-                          <option value="A9">A9</option>
-                          <option value="B1">B1</option>
-                          <option value="B2">B2</option>
-                          <option value="B3">B3</option>
-                          <option value="B4">B4</option>
-                          <option value="B5">B5</option>
-                          <option value="B6">B6</option>
-                          <option value="B7">B7</option>
-                          <option value="B8">B8</option>
-                          <option value="B9">B9</option>
+                          <option value="A1" <%= (book.shelf == "A1")? "selected": "" %> >A1</option>
+                          <option value="A2" <%= (book.shelf == "A2")? "selected": "" %> >A2</option>
+                          <option value="A3" <%= (book.shelf == "A3")? "selected": "" %> >A3</option>
+                          <option value="A4" <%= (book.shelf == "A4")? "selected": "" %> >A4</option>
+                          <option value="A5" <%= (book.shelf == "A5")? "selected": "" %> >A5</option>
+                          <option value="A6" <%= (book.shelf == "A6")? "selected": "" %> >A6</option>
+                          <option value="A7" <%= (book.shelf == "A7")? "selected": "" %> >A7</option>
+                          <option value="A8" <%= (book.shelf == "A8")? "selected": "" %> >A8</option>
+                          <option value="A9" <%= (book.shelf == "A9")? "selected": "" %> >A9</option>
+                          <option value="B1" <%= (book.shelf == "B1")? "selected": "" %> >B1</option>
+                          <option value="B2" <%= (book.shelf == "B2")? "selected": "" %> >B2</option>
+                          <option value="B3" <%= (book.shelf == "B3")? "selected": "" %> >B3</option>
+                          <option value="B4" <%= (book.shelf == "B4")? "selected": "" %> >B4</option>
+                          <option value="B5" <%= (book.shelf == "B5")? "selected": "" %> >B5</option>
+                          <option value="B6" <%= (book.shelf == "B6")? "selected": "" %> >B6</option>
+                          <option value="B7" <%= (book.shelf == "B7")? "selected": "" %> >B7</option>
+                          <option value="B8" <%= (book.shelf == "B8")? "selected": "" %> >B8</option>
+                          <option value="B9" <%= (book.shelf == "B9")? "selected": "" %> >B9</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -189,7 +190,7 @@
                           type="text"
                           class="form-control"
                           id="desc"
-                          placeholder="Description"
+                          value="<%= book.description %>"
                           name="desc"
                           required
                         />
@@ -200,10 +201,17 @@
                           type="text"
                           class="form-control"
                           id="barcode"
-                          placeholder="Barcode"
+                          value="<%= book.barcode %>"
                           name="barcode"
                           required
                         />
+                      </div>
+                      <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="form-control">
+                          <option value="1" <%= (book.status == '1')? "selected":"" %> >Active</option>
+                          <option value="0" <%= (book.status == '0')? "selected":"" %> >Inactive</option>
+                        </select>
                       </div>
 
                       <button
@@ -350,14 +358,14 @@
                    var formData = new FormData(document.getElementById('frm'));
                    formData.append('photo', blob);
                    console.log('fd',formData.title);
-                   $.ajax('/admin/addBook', {
+                   $.ajax('/admin/updateBook', {
                      method: 'POST',
                      data: formData,
                      processData: false,
                      contentType: false,
                      success: function (rtn) {
                          console.log(rtn)
-                         location.href = '/admin/booklist'
+                         if(rtn.status) location.href = '/admin/booklist'
                      },
                      error: function (err) {
                          console.log(err);

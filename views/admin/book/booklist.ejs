@@ -26,11 +26,12 @@
                           <th>Name</th>
                           <th>Author</th>
                           <th>Barcode</th>
-                          <th>Readin Time</th>
+                          <th>Reading Time</th>
                           <th>Book Shelf</th>
-                          <th>Main Category</th>
-                          <th>Sub Category</th>
-                          <th>Inserted</th>
+                          <th>Main Cat</th>
+                          <th>Sub Cat</th>
+                          <th>Status</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -43,7 +44,33 @@
                           <td><%= books[i].shelf %></td>
                           <td><%= books[i].mainCat %></td>
                           <td><%= books[i].subCat %></td>
-                          <td><%= books[i].inserted_date %></td>
+                          <td>
+                            <% if(books[i].status == "1"){%>
+                            <span class="badge badge-success">Active</span>
+                            <%}else if(books[i].status == "0"){%>
+                            <span class="badge badge-secondary">Inactive</span>
+                            <%}%>
+                          </td>
+                          <td>
+                            <a
+                              href="/admin/updateB/<%= books[i]._id %>"
+                              class="btn btn-warning"
+                              >Update</a
+                            >
+                            <% if(books[i].status == "1"){%>
+                            <a
+                              href="/admin/disableB/<%= books[i]._id %>"
+                              class="btn btn-secondary"
+                              >Inactive</a
+                            >
+                            <%}else{%>
+                            <a
+                              href="/admin/activeB/<%= books[i]._id %>"
+                              class="btn btn-success"
+                              >Active</a
+                            >
+                            <%}%>
+                          </td>
                         </tr>
                         <%}%>
                       </tbody>
@@ -51,11 +78,12 @@
                         <th>Name</th>
                         <th>Author</th>
                         <th>Barcode</th>
-                        <th>Readin Time</th>
+                        <th>Reading Time</th>
                         <th>Book Shelf</th>
-                        <th>Main Category</th>
-                        <th>Sub Category</th>
-                        <th>Inserted</th>
+                        <th>Main Cat</th>
+                        <th>Sub Cat</th>
+                        <th>Status</th>
+                        <th>Action</th>
                       </tfoot>
                     </table>
                   </div>

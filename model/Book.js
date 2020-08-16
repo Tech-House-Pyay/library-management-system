@@ -36,6 +36,26 @@ var BookSchema = new Schema({
     type: String,
     required: true,
   },
+  pages: {
+    type: Number,
+    required: true,
+  },
+  rating: [
+    {
+      student_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Students",
+      },
+      staff_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Staffs",
+      },
+      value: {
+        type: Number,
+        default: 0,
+      },
+    },
+  ],
   count: {
     type: Number,
     default: 0,
@@ -51,6 +71,10 @@ var BookSchema = new Schema({
   description: {
     type: String,
     required: true,
+  },
+  status: {
+    type: String,
+    default: "1", // 1 is active 0 is inactive
   },
   updated: {
     type: Date,
@@ -68,7 +92,7 @@ BookSchema.virtual("updated_date").get(function () {
 });
 
 BookSchema.virtual("inserted_date").get(function () {
-  return dateformat(this.inserted, "dd/mm/yyyy HH:MM");
+  return dateformat(this.instered, "dd/mm/yyyy HH:MM");
 });
 
 module.exports = mongoose.model("Books", BookSchema);

@@ -33,6 +33,10 @@ var StudentSchema = new Schema({
     type: Number,
     required: true,
   },
+  status: {
+    type: String,
+    default: "1", // 1 is active, 0 is warning, -1 inactive, -2 is block
+  },
   updated: {
     type: Date,
     default: Date.now,
@@ -58,7 +62,7 @@ StudentSchema.virtual("updated_date").get(function () {
 });
 
 StudentSchema.virtual("inserted_date").get(function () {
-  return dateformat(this.inserted, "dd/mm/yyyy HH:MM");
+  return dateformat(this.instered, "dd/mm/yyyy HH:MM");
 });
 
 module.exports = mongoose.model("Students", StudentSchema);
