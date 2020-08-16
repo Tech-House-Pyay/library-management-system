@@ -29,11 +29,31 @@
                     >
                   </div>
                 </div>
+                <% if(locals.user){%>
                 <div class="col-sm-6">
                   <div class="topbar-links">
-                    <a href="#"><i class="fa fa-lock"></i>Login</a>
+                    <a href="/user/logout"
+                      ><i class="fa fa-lock"></i><%= locals.user.name %> /
+                      LogOut</a
+                    >
                   </div>
                 </div>
+                <%}else{%>
+                <div class="col-sm-3">
+                  <div class="topbar-links">
+                    <a href="/user/signin"
+                      ><i class="fa fa-lock"></i>Staff Login</a
+                    >
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="topbar-links">
+                    <a href="/user/login"
+                      ><i class="fa fa-lock"></i>Student Login</a
+                    >
+                  </div>
+                </div>
+                <%}%>
               </div>
             </div>
             <div class="navbar-collapse hidden-sm hidden-xs">
@@ -50,7 +70,7 @@
                   >
                   <ul class="dropdown-menu">
                     <li>
-                      <a href="#">Book</a>
+                      <a href="/user/booklist">Book</a>
                     </li>
                     <li>
                       <a href="#">E Book</a>
@@ -88,7 +108,7 @@
                 >
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="#">Book</a>
+                    <a href="/user/booklist">Book</a>
                   </li>
                   <li>
                     <a href="#">E Book</a>

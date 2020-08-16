@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <% include ../../partial/head %>
+    <style>
+      .rat {
+        color: gold;
+        text-shadow: 1px 1px gray;
+      }
+    </style>
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css" />
+  </head>
+
+  <body>
+    <!-- Start: Header Section -->
+    <% include ../../partial/header %>
+    <!-- End: Header Section -->
+
+    <!-- Start: Slider Section -->
+    <section class="page-banner services-banner">
+      <div class="container">
+        <div class="banner-header">
+          <h2>Books Detail</h2>
+          <span class="underline center"></span>
+          <p class="lead">You can see details of book</p>
+        </div>
+        <div class="breadcrumb">
+          <ul>
+            <li><a href="/user/booklist">Books & Media</a></li>
+            <li>Books Detail</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- End: Slider Section -->
+
+    <!-- Start: Search Section -->
+    <div id="content" class="site-content">
+      <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+          <div class="booksmedia-detail-main">
+            <div class="container">
+              <div class="row">
+                <!-- Start: Search Section -->
+                <section class="search-filters">
+                  <div class="container">
+                    <div class="filter-box">
+                      <h3>What are you looking for at the library?</h3>
+                      <form
+                        action="http://libraria.demo.presstigers.com/index.html"
+                        method="get"
+                      >
+                        <div class="col-md-4 col-sm-6">
+                          <div class="form-group">
+                            <label class="sr-only" for="keywords"
+                              >Search by Keyword</label
+                            >
+                            <input
+                              class="form-control"
+                              placeholder="Search by Keyword"
+                              id="keywords"
+                              name="keywords"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                          <div class="form-group">
+                            <select
+                              name="catalog"
+                              id="catalog"
+                              class="form-control"
+                            >
+                              <option>Search the Catalog</option>
+                              <option>Catalog 01</option>
+                              <option>Catalog 02</option>
+                              <option>Catalog 03</option>
+                              <option>Catalog 04</option>
+                              <option>Catalog 05</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                          <div class="form-group">
+                            <select
+                              name="category"
+                              id="category"
+                              class="form-control"
+                            >
+                              <option>All Categories</option>
+                              <option>Category 01</option>
+                              <option>Category 02</option>
+                              <option>Category 03</option>
+                              <option>Category 04</option>
+                              <option>Category 05</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                          <div class="form-group">
+                            <input
+                              class="form-control"
+                              type="submit"
+                              value="Search"
+                            />
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </section>
+                <!-- End: Search Section -->
+              </div>
+              <div class="booksmedia-detail-box">
+                <div class="detailed-box">
+                  <div class="col-xs-12 col-sm-5 col-md-3">
+                    <div class="post-thumbnail">
+                      <div class="book-list-icon blue-icon"></div>
+                      <img src="<%= book.imgUrl %>" alt="Book Image" />
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-7 col-md-6">
+                    <div class="post-center-content">
+                      <h2><%= book.name %></h2>
+                      <p><strong>Author:</strong> <%= book.author_name %></p>
+                      <p><strong>Barcode:</strong> <%= book.barcode %></p>
+                      <!-- <div
+                        class="rating"
+                        style="<%= locals.user ? '': 'pointer-events:none;' %>"
+                      >
+                        <strong>Rating:</strong>
+                        <span>☆</span>
+                        <span>☆</span>
+                        <span>☆</span>
+                        <span>☆</span>
+                        <span>☆</span>
+                      </div> -->
+                      <div>
+                        <strong>Rating:</strong>
+                        <% for(var i = 0; i < 5; i++){%> <% if( i <
+                        Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount))){%>
+                        <span class="rat">&#9733;</span>
+                        <%}else{%>
+                        <span>☆</span>
+                        <%}%> <%}%>
+                      </div>
+                      <p></p>
+                      <p><strong>Length:</strong> <%= book.pages %> pages.</p>
+                      <p><strong>Format:</strong> Book</p>
+                      <p><strong>Main Category</strong> <%= book.mainCat %></p>
+                      <p><strong>Sub Category:</strong> <%= book.subCat %></p>
+                      <div class="actions">
+                        <ul>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Booking(coming soon)"
+                            >
+                              <i class="fa fa-shopping-cart"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Like(coming soon)"
+                            >
+                              <i class="fa fa-heart"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="mailto:maymyatmon@ptu.edu.mm"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Mail To Admin"
+                            >
+                              <i class="fa fa-envelope"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Search"
+                            >
+                              <i class="fa fa-search"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Download(only pdf)"
+                            >
+                              <i class="fa fa-download"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Share(coming soon)"
+                            >
+                              <i class="fa fa-share-alt"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="post-right-content">
+                      <h4>Available now</h4>
+                      <p><strong>Total Copies:</strong> <%= book.copy %></p>
+                      <p>
+                        <strong>Borrowing Duration</strong> <%= book.rTime %>
+                        days
+                      </p>
+                      <p><strong>Shelf:</strong> <%= book.shelf %></p>
+                      <p><strong>Borrowed Count</strong> <%= book.count %></p>
+
+                      <a href="#." class="btn btn-dark-gray"
+                        >Find Similar Main Category</a
+                      >
+                      <a href="#." class="btn btn-dark-gray"
+                        >Find Similar Sub Category</a
+                      >
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <p><strong>Description:</strong> <%= book.description %></p>
+
+                <div class="table-tabs" id="responsiveTabs">
+                  <ul class="nav nav-tabs">
+                    <li class="active">
+                      <b class="arrow-up"></b
+                      ><a data-toggle="tab" href="#sectionA">History</a>
+                    </li>
+                    <li>
+                      <b class="arrow-up"></b
+                      ><a data-toggle="tab" href="#sectionB">Reviews (<%= reviews.length %>)</a>
+                    </li>
+                    <li>
+                      <b class="arrow-up"></b
+                      ><a data-toggle="tab" href="#sectionC">Rating</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="sectionA" class="tab-pane fade in active">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Library Name</th>
+                            <th>Shelf Number</th>
+                            <th>Material Type</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Oak Park Public Library Main Branch</td>
+                            <td>B PURMORT</td>
+                            <td>Book</td>
+                            <td>In Processing</td>
+                          </tr>
+                          <tr>
+                            <td>Bedford Park Public Library District</td>
+                            <td>616.99 PUR</td>
+                            <td>Book</td>
+                            <td>Due 8/24/16</td>
+                          </tr>
+                          <tr>
+                            <td>Blue Island Public Library</td>
+                            <td>BIO PUR</td>
+                            <td>eBook</td>
+                            <td>Due 8/24/16</td>
+                          </tr>
+                          <tr>
+                            <td>Bridgeview Public Library</td>
+                            <td>B PUR</td>
+                            <td>DVD</td>
+                            <td>In Processing</td>
+                          </tr>
+                          <tr>
+                            <td>Eisenhower Public Library District</td>
+                            <td>616.994 PUR</td>
+                            <td>Magazine</td>
+                            <td>Checked In</td>
+                          </tr>
+                          <tr>
+                            <td>Forest Park Public Library</td>
+                            <td>BIO PURMORT</td>
+                            <td>Magazine</td>
+                            <td>Checked In</td>
+                          </tr>
+                          <tr>
+                            <td>Hinsdale Public Library</td>
+                            <td>B PUR</td>
+                            <td>Audio</td>
+                            <td>Checked In</td>
+                          </tr>
+                          <tr>
+                            <td>Oak Park Public Library Maze Branch</td>
+                            <td>616.99 PUR</td>
+                            <td>Audio</td>
+                            <td>Due 9/10/16</td>
+                          </tr>
+                          <tr>
+                            <td>River Grove Public Library District</td>
+                            <td>616.994 PURMORT</td>
+                            <td>Book</td>
+                            <td>Due 9/10/16</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div id="sectionB" class="tab-pane fade in">
+                      <div class="comments-area" id="comments">
+                        <div class="comment-bg">
+                          <h4 class="comments-title">Reviews</h4>
+                          <span class="underline left"></span>
+                          <ol class="comment-list">
+                            <% for(var i = 0; i < reviews.length; i++){%>
+                            <li class="comment even thread-even depth-1 parent">
+                              <div class="comment-body">
+                                <div class="comment-author vcard">
+                                  <% if(reviews[i].staff_id){%>
+                                  <img
+                                    class="avatar avatar-32 photo avatar-default"
+                                    src="/images/<%= (reviews[i].staff_id.name.startsWith('U'))? 'man.png':(reviews[i].staff_id.name.startsWith('Daw'))? 'woman.png':'dr.png' %>"
+                                    alt="Comment Author"
+                                  />
+                                  <b class="fn">
+                                    
+                                    <a
+                                      class="url"
+                                      rel="external nofollow"
+                                      href="#"
+                                      ><%= reviews[i].staff_id.name %></a
+                                    >
+                                    <%}else{%>
+                                      <img
+                                    class="avatar avatar-32 photo avatar-default"
+                                    src="/images/<%= (reviews[i].student_id.name.startsWith('Mg')||reviews[i].student_id.name.startsWith('Sa'))? 'boy.png':'girl.png' %>"
+                                    alt="Comment Author"
+                                  />
+                                  <b class="fn">
+                                    <a
+                                      class="url"
+                                      rel="external nofollow"
+                                      href="#"
+                                      ><%= reviews[i].student_id.name %></a
+                                    >
+                                    <%}%>
+                                  </b>
+                                </div>
+                                <footer class="comment-meta">
+                                  <div class="comment-metadata">
+                                    <a href="#">
+                                      <time datetime="2016-01-17">
+                                        <b><%= reviews[i].inserted_date %> </b>
+                                      </time>
+                                    </a>
+                                  </div>
+                                  <div class="comment-content">
+                                    <p>
+                                      <%= reviews[i].review %>
+                                    </p>
+                                  </div>
+                                </footer>
+                              </div>
+                            </li>
+                            <%}%>
+                          </ol>
+                        </div>
+                        <% if(locals.user){%> <% if(revStus){%>
+                        <h2 class="text-danger">User Can review one time</h2>
+                        <%}else{%>
+                        <div class="comment-respond" id="respond">
+                          <h4 class="comment-reply-title" id="reply-title">
+                            Write your review:
+                          </h4>
+                          <span class="underline left"></span>
+                          <form
+                            class="comment-form"
+                            id="commentform"
+                            action="/user/review"
+                            method="post"
+                          >
+                            <input
+                              type="hidden"
+                              name="book_id"
+                              value="<%= book._id %>"
+                            />
+                            <div class="row">
+                              <p class="comment-form-author input-required">
+                                <label> </label>
+                                <input
+                                  name="author"
+                                  id="author"
+                                  type="text"
+                                  value="<%= locals.user.name %>"
+                                  readonly
+                                />
+                              </p>
+                              <p class="comment-form-comment">
+                                <textarea
+                                  name="review"
+                                  id="comment"
+                                  placeholder="review here"
+                                ></textarea>
+                              </p>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p class="form-submit">
+                              <!-- <input
+                                value="Submit"
+                                class="submit"
+                                id="submit"
+                                name="submit"
+                                type="button"
+                              /> -->
+                              <button class="submit" id="submit">Submit</button>
+                            </p>
+                          </form>
+                        </div>
+                        <%}%> <%}else{%>
+                        <h2 class="text-danger">
+                          Need to login to give review
+                        </h2>
+                        <%}%>
+                      </div>
+                    </div>
+                    <div id="sectionC" class="tab-pane fade in">
+                      <div class="row">
+                        <div class="col-sm-5">
+                          <% if(locals.user){%>
+                          <div class="form-group" id="rating-ability-wrapper">
+                            <label class="control-label" for="rating">
+                              <span class="field-label-header"
+                                >Member can give the rating one time*</span
+                              ><br />
+                              <span class="field-label-info"></span>
+                              <input
+                                type="hidden"
+                                id="selected_rating"
+                                name="selected_rating"
+                                value=""
+                                required="required"
+                              />
+                            </label>
+                            <h2 class="bold rating-header" style="color: gold;">
+                              <span class="selected-rating">0</span
+                              ><small> / 5</small>
+                            </h2>
+                            <button
+                              type="button"
+                              class="btnrating btn btn-default btn-lg"
+                              data-attr="1"
+                              id="rating-star-1"
+                            >
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btnrating btn btn-default btn-lg"
+                              data-attr="2"
+                              id="rating-star-2"
+                            >
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btnrating btn btn-default btn-lg"
+                              data-attr="3"
+                              id="rating-star-3"
+                            >
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btnrating btn btn-default btn-lg"
+                              data-attr="4"
+                              id="rating-star-4"
+                            >
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btnrating btn btn-default btn-lg"
+                              data-attr="5"
+                              id="rating-star-5"
+                            >
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <p></p>
+                            <div class="p-5 text-right">
+                              <% if(!status){%>
+                              <button class="btn btn-yellow-gray" id="gRat">
+                                Give Rating
+                              </button>
+                              <%}else{%>
+                              <p>Can't give two time</p>
+                              <%}%>
+                            </div>
+                          </div>
+                          <%}else{%>
+                          <h2 class="text-danger">
+                            Need to login to give rating
+                          </h2>
+                          <%}%>
+                        </div>
+                        <div class="col-xs-12 col-sm-7">
+                          <div class="well well-sm">
+                            <div class="row">
+                              <div class="col-xs-12 col-md-6 text-center">
+                                <h1 class="rating-num">
+                                  <%=
+                                  Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount))
+                                  %>
+                                </h1>
+                                <div class="mb-3">
+                                  <% for(var i = 0; i < 5; i++){%> <% if( i <
+                                  Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount))){%>
+                                  <span class="fa fa-star fa-lg rat"></span>
+                                  <%}else{%>
+                                  <span class="fa fa-star fa-lg"></span>
+                                  <%}%> <%}%>
+                                </div>
+                                <div class="mt-5">
+                                  <span
+                                    class="fa fa-users fa-lg text-primary"
+                                  ></span
+                                  ><b> <%= avgrat[0].tcount%> total</b>
+                                </div>
+                              </div>
+                              <div class="col-xs-12 col-md-6">
+                                <div class="row rating-desc">
+                                  <div class="col-xs-3 col-md-3 text-right">
+                                    <span class="fa fa-star fa-lg rat"></span
+                                    ><b> 5</b>
+                                  </div>
+                                  <div class="col-xs-8 col-md-9">
+                                    <div class="progress">
+                                      <div
+                                        id="r5"
+                                        class="progress-bar progress-bar-striped"
+                                        role="progressbar"
+                                        aria-valuenow="20"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 0%;"
+                                      >
+                                        <span class="sr-only">0%</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- end 5 -->
+                                  <div class="col-xs-3 col-md-3 text-right">
+                                    <span class="fa fa-star fa-lg rat"></span
+                                    ><b> 4</b>
+                                  </div>
+                                  <div class="col-xs-8 col-md-9">
+                                    <div class="progress">
+                                      <div
+                                        id="r4"
+                                        class="progress-bar progress-bar-success progress-bar-striped"
+                                        role="progressbar"
+                                        aria-valuenow="20"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 0%;"
+                                      >
+                                        <span class="sr-only">0%</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- end 4 -->
+                                  <div class="col-xs-3 col-md-3 text-right">
+                                    <span class="fa fa-star fa-lg rat"></span
+                                    ><b> 3</b>
+                                  </div>
+                                  <div class="col-xs-8 col-md-9">
+                                    <div class="progress">
+                                      <div
+                                        id="r3"
+                                        class="progress-bar progress-bar-info progress-bar-striped"
+                                        role="progressbar"
+                                        aria-valuenow="20"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 0%;"
+                                      >
+                                        <span class="sr-only">0%</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- end 3 -->
+                                  <div class="col-xs-3 col-md-3 text-right">
+                                    <span class="fa fa-star fa-lg rat"></span>
+                                    <b> 2</b>
+                                  </div>
+                                  <div class="col-xs-8 col-md-9">
+                                    <div class="progress">
+                                      <div
+                                        id="r2"
+                                        class="progress-bar progress-bar-warning progress-bar-striped"
+                                        role="progressbar"
+                                        aria-valuenow="20"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 0%;"
+                                      >
+                                        <span class="sr-only">0%</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- end 2 -->
+                                  <div class="col-xs-3 col-md-3 text-right">
+                                    <span class="fa fa-star fa-lg rat"></span>
+                                    <b> 1</b>
+                                  </div>
+                                  <div class="col-xs-8 col-md-9">
+                                    <div class="progress">
+                                      <div
+                                        id="r1"
+                                        class="progress-bar progress-bar-danger progress-bar-striped"
+                                        role="progressbar"
+                                        aria-valuenow="80"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 0%;"
+                                      >
+                                        <span class="sr-only">0%</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- end 1 -->
+                                </div>
+                                <!-- end row -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <!-- End: Search Section -->
+    <!-- Start: Welcome Section -->
+    <!-- End: Welcome Section -->
+    <!-- Start: Category Filter -->
+    <!-- Start: Category Filter -->
+    <!-- Start: Features -->
+    <!-- End: Features -->
+    <!-- Start: Social Network -->
+    <% include ../../partial/social %>
+    <!-- End: Social Network -->
+    <!-- Start: Footer -->
+    <% include ../../partial/footer %>
+    <!-- End: Footer -->
+    <% include ../../partial/script %>
+  </body>
+  <script>
+    $('#submit').click(function(){
+      if($('#comment').val() != ''){
+        $('#commentform').submit();
+      }else{
+        alert('Please write review');
+      }
+    });
+    jQuery(document).ready(function ($) {
+      $(".btnrating").on("click", function (e) {
+        var previous_value = $("#selected_rating").val();
+        var selected_value = $(this).attr("data-attr");
+        $("#selected_rating").val(selected_value);
+        $(".selected-rating").empty();
+        $(".selected-rating").html(selected_value);
+        for (i = 1; i <= selected_value; ++i) {
+          $("#rating-star-" + i).toggleClass("btn-warning");
+          $("#rating-star-" + i).toggleClass("btn-default");
+        }
+        for (ix = 1; ix <= previous_value; ++ix) {
+          $("#rating-star-" + ix).toggleClass("btn-warning");
+          $("#rating-star-" + ix).toggleClass("btn-default");
+        }
+      });
+      function showgive(val) {
+        for (i = 1; i <= val; ++i) {
+          $("#rating-star-" + i).toggleClass("btn-warning");
+          $("#rating-star-" + i).toggleClass("btn-default");
+        }
+      }
+      <% if(status){%>
+        $('.selected-rating').html(<%= status[0].value%>);
+        showgive(<%= status[0].value%>);
+        $('#rating-ability-wrapper').css("pointer-events","none");
+      <%}%>
+    });
+    $("#gRat").click(function () {
+      if ($(".selected-rating").html() == 0) {
+        alert("Please ");
+      } else {
+        var data = {
+          bid: "<%= book._id %>",
+          value: Number($(".selected-rating").html()),
+        };
+        $.ajax({
+          url: "/user/giveR",
+          data: data,
+          type: "POST",
+          success: function (result) {
+            if(result.status){
+              location.href = "/user/bookdetail/<%= book._id %>"
+            }else{
+              alert("Error give rating..")
+            }
+          },
+        });
+      }
+    });
+    var avg = [];
+    <% for(var i = 1; i <= 5; i++){ var st = true;%>
+        <% for(var j = 0 ; j < rating.length; j++){ %>
+           <% if( rating[j]._id == i){ st = false;%>
+              avg.push(<%= Math.floor((Number(rating[j].count)/Number(avgrat[0].tcount))*100) %>);
+          <%}%>
+        <%}%>
+        <%if(st){%>
+              avg.push(0);
+            <%}%>
+    <%}%>
+      $('#r5').attr("style","width:"+avg[4]+"%");
+      $('#r4').attr("style","width:"+avg[3]+"%");
+      $('#r3').attr("style","width:"+avg[2]+"%");
+      $('#r2').attr("style","width:"+avg[1]+"%");
+      $('#r1').attr("style","width:"+avg[0]+"%");
+    console.log('///',avg);
+  </script>
+</html>
