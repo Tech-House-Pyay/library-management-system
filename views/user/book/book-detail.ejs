@@ -137,8 +137,8 @@
                       </div> -->
                       <div>
                         <strong>Rating:</strong>
-                        <% for(var i = 0; i < 5; i++){%> <% if( i <
-                        Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount))){%>
+                        <% for(var i = 0; i < 5; i++){%> <% if( i < ((avgrat[0])?
+                          Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount)):0)){%>
                         <span class="rat">&#9733;</span>
                         <%}else{%>
                         <span>☆</span>
@@ -537,12 +537,12 @@
                               <div class="col-xs-12 col-md-6 text-center">
                                 <h1 class="rating-num">
                                   <%=
-                                  Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount))
+                                  (avgrat[0])?  Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount)) : 0
                                   %>
                                 </h1>
                                 <div class="mb-3">
-                                  <% for(var i = 0; i < 5; i++){%> <% if( i <
-                                  Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount))){%>
+                                  <% for(var i = 0; i < 5; i++){%> <% if( i < ((avgrat[0])?
+                                    Math.round(Number(avgrat[0].count)/Number(avgrat[0].tcount)):0)){%>
                                   <span class="fa fa-star fa-lg rat"></span>
                                   <%}else{%>
                                   <span class="fa fa-star fa-lg"></span>
@@ -552,7 +552,7 @@
                                   <span
                                     class="fa fa-users fa-lg text-primary"
                                   ></span
-                                  ><b> <%= avgrat[0].tcount%> total</b>
+                                  ><b> <%= (avgrat[0])? avgrat[0].tcount : 0%> total</b>
                                 </div>
                               </div>
                               <div class="col-xs-12 col-md-6">
@@ -750,7 +750,7 @@
     <% for(var i = 1; i <= 5; i++){ var st = true;%>
         <% for(var j = 0 ; j < rating.length; j++){ %>
            <% if( rating[j]._id == i){ st = false;%>
-              avg.push(<%= Math.floor((Number(rating[j].count)/Number(avgrat[0].tcount))*100) %>);
+              avg.push(<%= Math.floor((Number(rating[j].count)/(avgrat[0])? Number(avgrat[0].tcount):1)*100) %>);
           <%}%>
         <%}%>
         <%if(st){%>

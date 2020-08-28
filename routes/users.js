@@ -4,6 +4,7 @@ var Review = require("../model/Review");
 var Book = require("../model/Book");
 var Student = require("../model/Student");
 var Staff = require("../model/Staff");
+var mongoose = require('mongoose');
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -20,6 +21,7 @@ router.get("/booklist", function (req, res) {
 router.get("/bookdetail/:id", function (req, res) {
   Book.aggregate(
     [
+      { $match: {_id: mongoose.Types.ObjectId(req.params.id)}},
       { $project: { rating: 1 } },
       { $unwind: "$rating" },
       { $group: { _id: "$rating.value", count: { $sum: 1 } } },
@@ -27,7 +29,7 @@ router.get("/bookdetail/:id", function (req, res) {
     function (err3, rtn3) {
       console.log("wew", rtn3);
       if (err3) throw err3;
-      Review.find({})
+      Review.find({book_id:req.params.id})
         .populate("staff_id")
         .populate("student_id")
         .exec(function (err6, rtn6) {
@@ -35,6 +37,7 @@ router.get("/bookdetail/:id", function (req, res) {
           console.log("book", rtn6);
           Book.aggregate(
             [
+              { $match: {_id: mongoose.Types.ObjectId(req.params.id)}},
               { $project: { rating: 1 } },
               { $unwind: "$rating" },
               {
