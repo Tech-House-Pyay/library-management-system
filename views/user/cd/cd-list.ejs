@@ -141,31 +141,29 @@
               </div>
               <div class="booksmedia-fullwidth">
                 <ul>
-                  <% for(var i = 0; i < books.length; i++){%>
+                  <% for(var i = 0; i < cds.length; i++){%>
                   <li>
-                    <div class="book-list-icon yellow-icon"></div>
+                    <div class="book-list-icon blue-icon"></div>
                     <figure>
-                      <a href="/user/bookdetail/<%= books[i]._id %>"
+                      <a href="/user/cddetail/<%= cds[i]._id %>"
                         ><img
-                          src="<%= books[i].imgUrl %>"
+                          src="<%= cds[i].imgUrl %>"
                           height="200px"
                           alt="Book"
                       /></a>
                       <figcaption>
                         <header>
                           <h4>
-                            <a href="/user/bookdetail/<%= books[i]._id %>"
-                              ><%= books[i].name %></a
+                            <a href="/user/cddetail/<%= cds[i]._id %>"
+                              ><%= cds[i].name %></a
                             >
                           </h4>
                           <p>
-                            <strong>Author:</strong> <%= books[i].author_name %>
+                            <strong>Author:</strong> <%= cds[i].author_name %>
                           </p>
-                          <p>
-                            <strong>Barcode:</strong> <%= books[i].barcode %>
-                          </p>
+                          <p><strong>Barcode:</strong> <%= cds[i].barcode %></p>
                         </header>
-                        <p><%= books[i].description %></p>
+                        <p><%= cds[i].description %></p>
                         <div class="actions">
                           <ul>
                             <li>

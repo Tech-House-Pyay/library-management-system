@@ -31,7 +31,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Update Book</h4>
+                    <h4 class="card-title">Update CD</h4>
                     <form
                       class="forms-sample"
                       action="#"
@@ -40,14 +40,14 @@
                       enctype="multipart/form-data"
                       name="frm"
                     >
-                    <input type="hidden" name="id" value="<%= book._id %>">
+                    <input type="hidden" name="id" value="<%= cd._id %>">
                       <div class="form-group">
                         <label for="exampleInputName1">Name</label>
                         <input
                           type="text"
                           class="form-control"
                           id="exampleInputName1"
-                          value="<%= book.name %>"
+                          value="<%= cd.name %>"
                           name="name"
                           required
                         />
@@ -58,7 +58,7 @@
                           type="text"
                           class="form-control"
                           id="auth_name"
-                          value="<%= book.author_name %>"
+                          value="<%= cd.author_name %>"
                           name="auth_name"
                           required
                         />
@@ -69,7 +69,7 @@
                           type="date"
                           class="form-control"
                           id="pushDate"
-                          value="<%= book.pushDate%>"
+                          value="<%= cd.pushDate%>"
                           name="pushDate"
                           required
                         />
@@ -88,7 +88,7 @@
                               <img
                                 class="rounded"
                                 id="photo"
-                                src="<%= book.imgUrl %>"
+                                src="<%= cd.imgUrl %>"
                                 alt="Image"
                               />
                               <input
@@ -102,17 +102,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label for="copy">Copy Count</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="copy"
-                          value="<%= book.copy %>"
-                          name="copy"
-                          required
-                        />
-                      </div>
+                      
                       <div class="form-group">
                         <label for="mainCat">Main Category</label>
                         <select
@@ -140,57 +130,19 @@
                           type="number"
                           class="form-control"
                           id="rTime"
-                          value="<%= book.rTime %>"
+                          value="<%= cd.rTime %>"
                           name="rTime"
                           required
                         />
                       </div>
-                      <div class="form-group">
-                        <label for="pages">Pages</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="pages"
-                          value="<%= book.pages %>"
-                          name="pages"
-                          required
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label for="shelf">Book Shelf</label>
-                        <select
-                          name="shelf"
-                          class="form-control"
-                          id="shelf"
-                          required
-                        >
-                          <option value="A1" <%= (book.shelf == "A1")? "selected": "" %> >A1</option>
-                          <option value="A2" <%= (book.shelf == "A2")? "selected": "" %> >A2</option>
-                          <option value="A3" <%= (book.shelf == "A3")? "selected": "" %> >A3</option>
-                          <option value="A4" <%= (book.shelf == "A4")? "selected": "" %> >A4</option>
-                          <option value="A5" <%= (book.shelf == "A5")? "selected": "" %> >A5</option>
-                          <option value="A6" <%= (book.shelf == "A6")? "selected": "" %> >A6</option>
-                          <option value="A7" <%= (book.shelf == "A7")? "selected": "" %> >A7</option>
-                          <option value="A8" <%= (book.shelf == "A8")? "selected": "" %> >A8</option>
-                          <option value="A9" <%= (book.shelf == "A9")? "selected": "" %> >A9</option>
-                          <option value="B1" <%= (book.shelf == "B1")? "selected": "" %> >B1</option>
-                          <option value="B2" <%= (book.shelf == "B2")? "selected": "" %> >B2</option>
-                          <option value="B3" <%= (book.shelf == "B3")? "selected": "" %> >B3</option>
-                          <option value="B4" <%= (book.shelf == "B4")? "selected": "" %> >B4</option>
-                          <option value="B5" <%= (book.shelf == "B5")? "selected": "" %> >B5</option>
-                          <option value="B6" <%= (book.shelf == "B6")? "selected": "" %> >B6</option>
-                          <option value="B7" <%= (book.shelf == "B7")? "selected": "" %> >B7</option>
-                          <option value="B8" <%= (book.shelf == "B8")? "selected": "" %> >B8</option>
-                          <option value="B9" <%= (book.shelf == "B9")? "selected": "" %> >B9</option>
-                        </select>
-                      </div>
+                      
                       <div class="form-group">
                         <label for="desc">Description</label>
                         <input
                           type="text"
                           class="form-control"
                           id="desc"
-                          value="<%= book.description %>"
+                          value="<%= cd.description %>"
                           name="desc"
                           required
                         />
@@ -201,7 +153,7 @@
                           type="text"
                           class="form-control"
                           id="barcode"
-                          value="<%= book.barcode %>"
+                          value="<%= cd.barcode %>"
                           name="barcode"
                           required
                         />
@@ -209,9 +161,9 @@
                       <div class="form-group">
                         <label for="status">Status</label>
                         <select name="status" id="status" class="form-control">
-                          <option value="00" <%= (book.status == '00')? "selected":"" %> >Avaliable</option>
-                          <option value="01" <%= (book.status == '01')? "selected":"" %> >Borrowed</option>
-                          <option value="10" <%= (book.status == '10')? "selected":"" %> >Lose</option>
+                          <option value="00" <%= (cd.status == '00')? "selected":"" %> >Avaliable</option>
+                          <option value="01" <%= (cd.status == '01')? "selected":"" %> >Borrowed</option>
+                          <option value="10" <%= (cd.status == '10')? "selected":"" %> >Lose</option>
                         </select>
                       </div>
 
@@ -359,14 +311,14 @@
                    var formData = new FormData(document.getElementById('frm'));
                    formData.append('photo', blob);
                    console.log('fd',formData.title);
-                   $.ajax('/admin/updateBook', {
+                   $.ajax('/admin/updateCD', {
                      method: 'POST',
                      data: formData,
                      processData: false,
                      contentType: false,
                      success: function (rtn) {
                          console.log(rtn)
-                         if(rtn.status) location.href = '/admin/booklist'
+                         if(rtn.status) location.href = '/admin/cdlist'
                      },
                      error: function (err) {
                          console.log(err);

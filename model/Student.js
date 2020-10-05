@@ -33,6 +33,13 @@ var StudentSchema = new Schema({
     type: Number,
     required: true,
   },
+  last_borrow: {
+    type: Date,
+  },
+  last_act: {
+    type: String,
+    default: "01", // 01 complete, 00 is borrow
+  },
   status: {
     type: String,
     default: "1", // 1 is active, 0 is warning, -1 inactive, -2 is block

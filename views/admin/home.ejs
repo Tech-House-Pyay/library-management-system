@@ -14,7 +14,302 @@
         <% include ../partialA/sidebar %>
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper"></div>
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Total Student Member</h4>
+                    <div class="media">
+                      <i
+                        class="mdi mdi-account-multiple icon-lg text-info d-flex align-self-start mr-3"
+                      ></i>
+                      <div class="media-body">
+                        <div class="card-text mt-2">
+                          <h1 class="text-dark"><%= stuC %></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Total Staff Member</h4>
+                    <div class="media">
+                      <i
+                        class="mdi mdi mdi-account-multiple-outline icon-lg text-info d-flex align-self-start mr-3"
+                      ></i>
+                      <div class="media-body">
+                        <div class="card-text mt-2">
+                          <h1 class="text-dark"><%= staC %></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Total Book</h4>
+                    <div class="media">
+                      <i
+                        class="mdi mdi-book-multiple icon-lg text-info d-flex align-self-start mr-3"
+                      ></i>
+                      <div class="media-body">
+                        <div class="card-text mt-2">
+                          <h1 class="text-dark"><%= bCount %></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Total CD</h4>
+                    <div class="media">
+                      <i
+                        class="mdi mdi mdi-harddisk icon-lg text-info d-flex align-self-start mr-3"
+                      ></i>
+                      <div class="media-body">
+                        <div class="card-text mt-2">
+                          <h1 class="text-dark"><%= cCount %></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Total Category</h4>
+                    <div class="media">
+                      <i
+                        class="mdi mdi mdi-database icon-lg text-info d-flex align-self-start mr-3"
+                      ></i>
+                      <div class="media-body">
+                        <div class="card-text mt-2">
+                          <h1 class="text-dark"><%= catCount %></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Total Review</h4>
+                    <div class="media">
+                      <i
+                        class="mdi mdi-contact-mail icon-lg text-info d-flex align-self-start mr-3"
+                      ></i>
+                      <div class="media-body">
+                        <div class="card-text m-2">
+                          <h1 class="text-dark"><%= revCount %></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Total Book Borrowing</h4>
+                    <div class="media">
+                      <i
+                        class="mdi mdi-book-open-page-variant icon-lg text-info d-flex align-self-start mr-3"
+                      ></i>
+                      <div class="media-body">
+                        <div class="card-text m-2">
+                          <h1 class="text-dark"><%= recCount %></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Total CD Borrowing</h4>
+                    <div class="media">
+                      <i
+                        class="mdi mdi-floppy icon-lg text-info d-flex align-self-start mr-3"
+                      ></i>
+                      <div class="media-body">
+                        <div class="card-text m-2">
+                          <h1 class="text-dark"><%= cdRecCount %></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Student Book Borrowing Record</h4>
+                    <p class="card-description">last five activity</p>
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Student</th>
+                          <th>RFID</th>
+                          <th>Last Action</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(var i = 0; i < stuRec.length; i++){%>
+                        <tr>
+                          <td><%= stuRec[i].student_id.name %></td>
+                          <td><%= stuRec[i].student_id.rfid %></td>
+                          <td>
+                            <%= (stuRec[i].type == "00")?
+                            stuRec[i].borrowed_date: stuRec[i].received_date %>
+                          </td>
+                          <td>
+                            <% if(stuRec[i].type == "00"){%>
+                            <label class="badge badge-warning">Borrow</label>
+                            <%}else{%>
+                            <label class="badge badge-success">Return</label>
+                            <%}%>
+                          </td>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Student CD Borrowing Record</h4>
+                    <p class="card-description">last five activity</p>
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Student</th>
+                          <th>RFID</th>
+                          <th>Last Action</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(var i = 0; i < stuCDRec.length; i++){%>
+                        <tr>
+                          <td><%= stuCDRec[i].student_id.name %></td>
+                          <td><%= stuCDRec[i].student_id.rfid %></td>
+                          <td>
+                            <%= (stuCDRec[i].type == "00")?
+                            stuCDRec[i].borrowed_date: stuCDRec[i].received_date
+                            %>
+                          </td>
+                          <td>
+                            <% if(stuCDRec[i].type == "00"){%>
+                            <label class="badge badge-warning">Borrow</label>
+                            <%}else{%>
+                            <label class="badge badge-success">Return</label>
+                            <%}%>
+                          </td>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Staff Book Borrowing Record</h4>
+                    <p class="card-description">last five activity</p>
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Staff</th>
+                          <th>RFID</th>
+                          <th>Last Action</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(var i = 0; i < staRec.length; i++){%>
+                        <tr>
+                          <td><%= staRec[i].staff_id.name %></td>
+                          <td><%= staRec[i].staff_id.rfid %></td>
+                          <td>
+                            <%= (staRec[i].type == "00")?
+                            staRec[i].borrowed_date: staRec[i].received_date %>
+                          </td>
+                          <td>
+                            <% if(staRec[i].type == "00"){%>
+                            <label class="badge badge-warning">Borrow</label>
+                            <%}else{%>
+                            <label class="badge badge-success">Return</label>
+                            <%}%>
+                          </td>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Staff CD Borrowing Record</h4>
+                    <p class="card-description">last five activity</p>
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Staff</th>
+                          <th>RFID</th>
+                          <th>Last Action</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(var i = 0; i < staCDRec.length; i++){%>
+                        <tr>
+                          <td><%= staCDRec[i].staff_id.name %></td>
+                          <td><%= staCDRec[i].staff_id.rfid %></td>
+                          <td>
+                            <%= (staCDRec[i].type == "00")?
+                            staCDRec[i].borrowed_date: staCDRec[i].received_date
+                            %>
+                          </td>
+                          <td>
+                            <% if(staCDRec[i].type == "00"){%>
+                            <label class="badge badge-warning">Borrow</label>
+                            <%}else{%>
+                            <label class="badge badge-success">Return</label>
+                            <%}%>
+                          </td>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <% include ../partialA/footer %>

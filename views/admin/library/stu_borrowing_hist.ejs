@@ -16,6 +16,7 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
+            <h1>Student Book Borrowing List</h1>
             <div class="row">
               <div class="col-sm-12 grid-margin stretch-card">
                 <div class="card">
@@ -23,69 +24,56 @@
                     <table id="example" class="display" style="width: 100%">
                       <thead>
                         <tr>
+                          <th>#</th>
                           <th>Name</th>
-                          <th>Author</th>
-                          <th>Barcode</th>
-                          <th>Reading Time</th>
-                          <th>Book Shelf</th>
-                          <th>Main Cat</th>
-                          <th>Sub Cat</th>
-                          <th>Status</th>
-                          <th>Action</th>
+                          <th>Major</th>
+                          <th>Year</th>
+                          <th>Roll no.</th>
+                          <th>Type</th>
+                          <th>Book List</th>
+                          <th>Duration</th>
+                          <th>Last Action Date</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% for(var i = 0; i < books.length; i++){%>
+                        <% for(var i = 0; i < records.length; i++){%>
                         <tr>
-                          <td><%= books[i].name %></td>
-                          <td><%= books[i].author_name %></td>
-                          <td><%= books[i].barcode %></td>
-                          <td><%= books[i].rTime %></td>
-                          <td><%= books[i].shelf %></td>
-                          <td><%= books[i].mainCat %></td>
-                          <td><%= books[i].subCat %></td>
+                          <td><%= i+1 %></td>
+                          <td><%= records[i].student_id.name %></td>
+                          <td><%= records[i].student_id.major %></td>
+                          <td><%= records[i].student_id.year %></td>
+                          <td><%= records[i].student_id.rollNo %></td>
                           <td>
-                            <% if(books[i].status == "01" || books[i].status ==
-                            "00"){%>
-                            <span class="badge badge-success">Active</span>
-                            <%}else if(books[i].status == "10"){%>
-                            <span class="badge badge-secondary">Inactive</span>
+                            <% if(records[i].type == '00'){%>
+                            <span class="badge badge-warning">Borrow</span>
+                            <%}else{%>
+                            <span class="badge badge-success">Return</span>
                             <%}%>
                           </td>
                           <td>
-                            <a
-                              href="/admin/updateB/<%= books[i]._id %>"
-                              class="btn btn-warning"
-                              >Update</a
-                            >
-                            <% if(books[i].status == "00" || books[i].status ==
-                            "01"){%>
-                            <a
-                              href="/admin/disableB/<%= books[i]._id %>"
-                              class="btn btn-secondary"
-                              >Lose</a
-                            >
-                            <%}else if(books[i].status == "10"){%>
-                            <a
-                              href="/admin/activeB/<%= books[i]._id %>"
-                              class="btn btn-success"
-                              >Avaliable</a
-                            >
+                            <% for(var j=0; j < records[i].books.length; j++){%>
+                            <li><%= records[i].books[j].name %></li>
                             <%}%>
+                          </td>
+                          <td><%= records[i].tol_range %> Days</td>
+                          <td>
+                            <% if(records[i].type == '00'){%> <%=
+                            records[i].borrowed_date %> <%}else{%> <%=
+                            records[i].received_date %> <%}%>
                           </td>
                         </tr>
                         <%}%>
                       </tbody>
                       <tfoot>
+                        <th>#</th>
                         <th>Name</th>
-                        <th>Author</th>
-                        <th>Barcode</th>
-                        <th>Reading Time</th>
-                        <th>Book Shelf</th>
-                        <th>Main Cat</th>
-                        <th>Sub Cat</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Major</th>
+                        <th>Year</th>
+                        <th>Roll no.</th>
+                        <th>Type</th>
+                        <th>Book List</th>
+                        <th>Duration</th>
+                        <th>Last Action Date</th>
                       </tfoot>
                     </table>
                   </div>

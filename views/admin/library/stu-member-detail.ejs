@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <% include ../../partialA/head %>
+    <link rel="stylesheet" href="/stylesheets/sweetalert/sweetalert.css" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_navbar.html -->
+      <% include ../../partialA/navbar %>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <% include ../../partialA/sidebar %>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-header bg-success">
+                    <h3 class="text-black">Book Borrowing</h3>
+                  </div>
+                  <% if(stu.status != '-2') {%>
+                  <div class="row">
+                    <% if(record.status == '01' || record == "0"){%>
+                    <div class="col-sm-5">
+                      <div class="card-body">
+                        <div class="card border">
+                          <div class="card-header bg-primary">
+                            <h4 class="text-dark">Barcode scan here</h4>
+                          </div>
+                          <div class="card-body">
+                            <form class="form-horizontal">
+                              <div class="form-body">
+                                <div class="form-group row">
+                                  <div class="col-lg-12">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="barcode"
+                                      name="barcode"
+                                      placeholder="Please scan book barcode serial number"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="card-body">
+                        <div class="card border">
+                          <div class="card-header bg-primary">
+                            <h4 class="text-dark">Book List</h4>
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Book Name</th>
+                                    <th>Author</th>
+                                    <th>Duration</th>
+                                  </tr>
+                                </thead>
+                                <tfoot>
+                                  <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th id="tol"></th>
+                                  </tr>
+                                </tfoot>
+                                <tbody id="inTab"></tbody>
+                              </table>
+                            </div>
+                            <button
+                              id="btnborrow"
+                              class="btn btn-primary btn-block"
+                            >
+                              Borrow
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <%} else{%>
+                    <h2 class="text-black m-3">
+                      Member cannot borrow before return borrowed books
+                    </h2>
+                    <%}%>
+                  </div>
+                  <% }else {%>
+                  <h2>
+                    Cannot allow block member for borrowing and returning
+                    process
+                  </h2>
+                  <%}%>
+                </div>
+              </div>
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-header bg-warning">
+                    <h3 class="text-black">Book Reutrning</h3>
+                  </div>
+                  <div class="row">
+                    <% if( record.status == '00' ){%>
+                    <div class="col-sm-4">
+                      <div class="card-body m-n3">
+                        <div class="card border">
+                          <div class="card-header bg-info">
+                            <h4 class="text-dark">Borrowed Book List</h4>
+                          </div>
+                          <div class="card-body m-n4">
+                            <div class="table-responsive">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Book Name</th>
+                                    <th>Author</th>
+                                    <th>Duration</th>
+                                  </tr>
+                                </thead>
+                                <tfoot>
+                                  <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th><%=record.tol_range %></th>
+                                  </tr>
+                                </tfoot>
+                                <tbody id="borTab">
+                                  <% if (record == 0){%>
+                                  <p>Data not found!!</p>
+                                  <%}else{%> <% if(record.books.length < 0 ){%>
+                                  <p>Data Not Found!!</p>
+                                  <%}else{%> <% for(var i = 0; i<
+                                  record.books.length; i++){%>
+                                  <tr id="bor<%=record.books[i].barcode%>">
+                                    <th><%= i %></th>
+                                    <th><%= record.books[i].name %></th>
+                                    <th><%= record.books[i].author %></th>
+                                    <th><%= record.books[i].range %></th>
+                                  </tr>
+
+                                  <%}%> <%}%> <%}%>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="card-body m-n3">
+                        <div class="card border">
+                          <div class="card-header bg-info">
+                            <h4 class="text-dark">Barcode scan here</h4>
+                          </div>
+                          <div class="card-body">
+                            <form class="form-horizontal">
+                              <div class="form-body">
+                                <div class="form-group row">
+                                  <div class="col-lg-12">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="barcodeRec"
+                                      name="barcodeRec"
+                                      placeholder="Please scan book barcode"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="card-body m-n3">
+                        <div class="card border">
+                          <div class="card-header bg-info">
+                            <h4 class="text-dark">Book List</h4>
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Book Name</th>
+                                    <th>Author</th>
+                                    <th>Duration</th>
+                                  </tr>
+                                </thead>
+                                <tfoot>
+                                  <!-- <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th id="tolRec"></th>
+                                  </tr> -->
+                                </tfoot>
+                                <tbody id="RecTab">
+                                  <% if(record == 0){%>
+                                  <p>Data not Found</p>
+                                  <%}else{%> <% if(record.books.length < 0){%>
+                                  <p>Data Not Found!!</p>
+                                  <%}else{%> <% for(var i = 0; i<
+                                  record.books.length; i++){%>
+                                  <tr
+                                    id="ret<%=record.books[i].barcode%>"
+                                    hidden
+                                  >
+                                    <th><%= i %></th>
+                                    <th><%= record.books[i].name %></th>
+                                    <th><%= record.books[i].author %></th>
+                                    <th><%= record.books[i].range %></th>
+                                  </tr>
+
+                                  <%}%> <%}%> <%}%>
+                                </tbody>
+                              </table>
+                            </div>
+                            <button
+                              type="button"
+                              id="btnreturn"
+                              hidden
+                              class="btn btn-success btn-block"
+                            >
+                              Return
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <%}%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <% include ../../partialA/footer %>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <script src="/javascripts/sweetalert/sweetalert.min.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <!-- End custom js for this page -->
+  </body>
+  <script>
+            var borList = [];
+            var retList = [];
+            var tol_dur = 0;
+            $("#barcode").keypress(function (e) {
+              if (e.keyCode == 13) {
+                e.preventDefault();
+                $.post("/admin/barcheck", { barcode: $("#barcode").val() })
+                  .done(function (res) {
+                    var check = false;
+                    if (res.status) {
+                      for (var j in borList) {
+                        console.log(borList[j], res.book._id);
+                        if (borList[j] == res.book._id) {
+                          check = true;
+                          console.log("do");
+                        }
+                      }
+                      if (check && borList.length > 0) {
+                        swal("Oops...", "This Book is already inserted", "error");
+                      } else {
+                        borList.push(res.book._id);
+                        $("#barcode").val("");
+                        $("#barcode").focus();
+                        tol_dur += res.book.rTime;
+                        $("#tol").html(tol_dur + " days");
+
+                        var inTab = document.getElementById("inTab");
+                        var row = inTab.insertRow(0);
+                        var cell0 = row.insertCell(0);
+                        cell0.appendChild(document.createTextNode(1));
+                        var cell1 = row.insertCell(1);
+                        cell1.appendChild(document.createTextNode(res.book.name));
+                        var cell2 = row.insertCell(2);
+                        cell2.appendChild(
+                          document.createTextNode(res.book.author_name)
+                        );
+                        var cell3 = row.insertCell(3);
+                        cell3.appendChild(document.createTextNode(res.book.rTime));
+                      }
+                    } else {
+                      swal("Oops...", res.msg, "error");
+                    }
+                  })
+                  .fail(function (err) {
+                    console.log(err.status);
+                  });
+              }
+              // }
+            });
+            $("#btnborrow").click(function () {
+              swal(
+                {
+                  title: "Checking Authorization",
+                  text: "Enter Member's password!!",
+                  type: "input",
+                  inputType: "password",
+                  showCancelButton: true,
+                  closeOnConfirm: false,
+                  animation: "slide-from-top",
+                  inputPlaceholder: "Your Password Here",
+                },
+                function (inputValue) {
+                  if (inputValue === false) return false;
+                  $.post("/admin/stupwdcheck", {
+                    stu: "<%=stu._id%>",
+                    pwd: inputValue,
+                  }).done(function (resc) {
+                    if (resc.status) {
+                      $.post("/admin/borrowstu", {
+                        bor: JSON.stringify(borList),
+                        stu: "<%= stu._id %>",
+                        tol_dur: tol_dur,
+                      }).done(function (res) {
+                        if (res.status) {
+                          swal(
+                            {
+                              title: "Well Done",
+                              text: res.msg,
+                              type: "success",
+                              confirmButtonText: "OK",
+                              closeOnConfirm: true,
+                            },
+                            function (isConfirm) {
+                              location.href = "/admin/stumember/<%= stu._id %>";
+                            }
+                          );
+                        } else {
+                          sweetAlert("Oops...", res.msg, "error");
+                        }
+                      });
+                    } else {
+                      swal.showInputError(resc.msg);
+                      return false;
+                    }
+                  });
+                }
+              );
+            });
+            var booklist = [];
+        <% if(record!=0){%>
+        <% for(var k = 0; k< record.books.length; k++){%>
+          booklist.push('<%= record.books[k]._id %>');
+          <%}%>
+        <%}%>
+        var list_len = 0
+        $('#barcodeRec').keypress(function (e) {
+          if(e.keyCode == 13) {
+            e.preventDefault();
+
+            <% if(record != 0) { %>
+              <% for(var i = 0; i< record.books.length; i++){%>
+                  if('<%= record.books[i].barcode %>' == $('#barcodeRec').val() ){
+
+                    if(list_len == <%= record.books.length %>){
+                      console.log('same barcode');
+                      return;
+                    }
+                    list_len ++;
+                    retList.push('<%=record.books[i]._id %>');
+                    var bar = '#bor'+$('#barcodeRec').val();
+                    var ret = '#ret'+$('#barcodeRec').val();
+                    $(bar).hide();
+                    $(ret).removeAttr('hidden');
+                  }
+
+              <%}%>
+              if(list_len == <%= record.books.length %>){
+                $('#btnreturn').removeAttr('hidden');
+              }
+
+            <%}%>
+            $('#barcodeRec').val('');
+            $('#barcodeRec').focus();
+            }
+        });
+        $('#btnreturn').click(function () {
+      console.log('init',booklist,retList);
+      var result = false;
+      for(var i = 0; i< booklist.length; i++){
+        for(var j in retList){
+          if(retList[j]== booklist[i]) result = true;
+          break;
+        }
+      }
+    if(result){
+      console.log('equal');
+      $.post(
+        '/admin/returnstu/<%=record._id%>',
+      ).done(function (res) {
+        if(res.status){
+          swal({
+            title: "Well Done",
+            text: res.msg,
+            type: "success",
+            confirmButtonText: "OK",
+            closeOnConfirm: true
+          },
+          function (isConfirm) {
+            location.href = '/admin/stumember/<%= stu._id %>';
+          }
+        )
+        }else {
+          sweetAlert("Oops...", res.msg, "error");
+        }
+      })
+    }
+
+    });
+  </script>
+</html>

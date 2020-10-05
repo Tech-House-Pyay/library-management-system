@@ -2,9 +2,10 @@ var express = require("express");
 var router = express.Router();
 var Review = require("../model/Review");
 var Book = require("../model/Book");
+var Cd = require("../model/Cd");
 var Student = require("../model/Student");
 var Staff = require("../model/Staff");
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -17,11 +18,24 @@ router.get("/booklist", function (req, res) {
     res.render("user/book/book-list", { books: rtn });
   });
 });
+router.get("/cdlist", function (req, res) {
+  Cd.find(function (err, rtn) {
+    if (err) throw err;
+    res.render("user/cd/cd-list", { cds: rtn });
+  });
+});
+
+router.get("/cddetail/:id", function (req, res) {
+  Cd.findById(req.params.id, function (err, rtn) {
+    if (err) throw err;
+    res.render("user/cd/cd-detail", { cd: rtn });
+  });
+});
 
 router.get("/bookdetail/:id", function (req, res) {
   Book.aggregate(
     [
-      { $match: {_id: mongoose.Types.ObjectId(req.params.id)}},
+      { $match: { _id: mongoose.Types.ObjectId(req.params.id) } },
       { $project: { rating: 1 } },
       { $unwind: "$rating" },
       { $group: { _id: "$rating.value", count: { $sum: 1 } } },
@@ -29,7 +43,7 @@ router.get("/bookdetail/:id", function (req, res) {
     function (err3, rtn3) {
       console.log("wew", rtn3);
       if (err3) throw err3;
-      Review.find({book_id:req.params.id})
+      Review.find({ book_id: req.params.id })
         .populate("staff_id")
         .populate("student_id")
         .exec(function (err6, rtn6) {
@@ -37,7 +51,7 @@ router.get("/bookdetail/:id", function (req, res) {
           console.log("book", rtn6);
           Book.aggregate(
             [
-              { $match: {_id: mongoose.Types.ObjectId(req.params.id)}},
+              { $match: { _id: mongoose.Types.ObjectId(req.params.id) } },
               { $project: { rating: 1 } },
               { $unwind: "$rating" },
               {
@@ -115,6 +129,66 @@ router.get("/bookdetail/:id", function (req, res) {
         });
     }
   );
+});
+
+router.get("/rule", function (req, res) {
+  Book.count(function (err, rtn) {
+    if (err) throw err;
+    Cd.count(function (err2, rtn2) {
+      if (err2) throw err2;
+      res.render("user/rule", { bcount: rtn, cdcount: rtn2 });
+    });
+  });
+});
+
+router.get("/contact", function (req, res) {
+  res.render("user/contact");
+});
+
+router.get("/library", function (req, res) {
+  Book.find({})
+    .sort({ count: -1 })
+    .limit(3)
+    .exec(function (err, rtn) {
+      if (err) throw err;
+      Cd.find({})
+        .sort({ count: -1 })
+        .limit(3)
+        .exec(function (err2, rtn2) {
+          if (err2) throw err2;
+          Book.find({ "rating.value": { $gt: 0 } })
+            .sort({ "rating.value": -1 })
+            .limit(6)
+            .exec(function (err3, rtn3) {
+              if (err3) throw err3;
+              Book.count(function (err4, rtn4) {
+                if (err4) throw err4;
+                Cd.count(function (err5, rtn5) {
+                  if (err5) throw err5;
+                  console.log(
+                    "rtn1",
+                    rtn.length,
+                    "rtn2",
+                    rtn2,
+                    "rtn3",
+                    rtn3.length,
+                    "rtn4",
+                    rtn4,
+                    "rtn5",
+                    rtn5
+                  );
+                  res.render("user/library", {
+                    tbook: rtn,
+                    tcd: rtn2,
+                    pbook: rtn3,
+                    bcount: rtn4,
+                    cdcount: rtn5,
+                  });
+                });
+              });
+            });
+        });
+    });
 });
 
 router.get("/login", function (req, res) {

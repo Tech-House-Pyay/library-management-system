@@ -26,8 +26,7 @@
                           <th>Name</th>
                           <th>Author</th>
                           <th>Barcode</th>
-                          <th>Reading Time</th>
-                          <th>Book Shelf</th>
+                          <th>Borrowing Time</th>
                           <th>Main Cat</th>
                           <th>Sub Cat</th>
                           <th>Status</th>
@@ -35,39 +34,38 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% for(var i = 0; i < books.length; i++){%>
+                        <% for(var i = 0; i < cds.length; i++){%>
                         <tr>
-                          <td><%= books[i].name %></td>
-                          <td><%= books[i].author_name %></td>
-                          <td><%= books[i].barcode %></td>
-                          <td><%= books[i].rTime %></td>
-                          <td><%= books[i].shelf %></td>
-                          <td><%= books[i].mainCat %></td>
-                          <td><%= books[i].subCat %></td>
+                          <td><%= cds[i].name %></td>
+                          <td><%= cds[i].author_name %></td>
+                          <td><%= cds[i].barcode %></td>
+                          <td><%= cds[i].rTime %></td>
+                          <td><%= cds[i].mainCat %></td>
+                          <td><%= cds[i].subCat %></td>
                           <td>
-                            <% if(books[i].status == "01" || books[i].status ==
-                            "00"){%>
+                            <% if(cds[i].status == "00" || cds[i].status ==
+                            "01"){%>
                             <span class="badge badge-success">Active</span>
-                            <%}else if(books[i].status == "10"){%>
-                            <span class="badge badge-secondary">Inactive</span>
+                            <%}else if(cds[i].status == "10"){%>
+                            <span class="badge badge-secondary">Lose</span>
                             <%}%>
                           </td>
                           <td>
                             <a
-                              href="/admin/updateB/<%= books[i]._id %>"
+                              href="/admin/updateCD/<%= cds[i]._id %>"
                               class="btn btn-warning"
                               >Update</a
                             >
-                            <% if(books[i].status == "00" || books[i].status ==
+                            <% if(cds[i].status == "00" || cds[i].status ==
                             "01"){%>
                             <a
-                              href="/admin/disableB/<%= books[i]._id %>"
+                              href="/admin/disableCD/<%= cds[i]._id %>"
                               class="btn btn-secondary"
                               >Lose</a
                             >
-                            <%}else if(books[i].status == "10"){%>
+                            <%}else if(cds[i].status == "10"){%>
                             <a
-                              href="/admin/activeB/<%= books[i]._id %>"
+                              href="/admin/activeCD/<%= cds[i]._id %>"
                               class="btn btn-success"
                               >Avaliable</a
                             >
@@ -80,8 +78,7 @@
                         <th>Name</th>
                         <th>Author</th>
                         <th>Barcode</th>
-                        <th>Reading Time</th>
-                        <th>Book Shelf</th>
+                        <th>Borrowing Time</th>
                         <th>Main Cat</th>
                         <th>Sub Cat</th>
                         <th>Status</th>

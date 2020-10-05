@@ -2,7 +2,7 @@
   <ul class="nav">
     <li class="nav-item nav-category">Main</li>
     <li class="nav-item">
-      <a class="nav-link" href="/admin">
+      <a class="nav-link" aria-expanded="false" href="/admin">
         <span class="icon-bg"><i class="mdi mdi-home menu-icon"></i></span>
         <span class="menu-title">Home</span>
       </a>
@@ -69,6 +69,31 @@
       <a
         class="nav-link"
         data-toggle="collapse"
+        href="#cd_ui"
+        aria-expanded="false"
+        aria-controls="ui-basic"
+      >
+        <span class="icon-bg"
+          ><i class="mdi mdi-book-multiple-variant menu-icon"></i
+        ></span>
+        <span class="menu-title">CD</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="cd_ui">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/addCD">Add CD</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/cdlist">CD List</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        data-toggle="collapse"
         href="#cate_ui"
         aria-expanded="false"
         aria-controls="ui-basic"
@@ -95,7 +120,7 @@
         data-toggle="collapse"
         href="#library_ui"
         aria-expanded="false"
-        aria-controls="ui-basic"
+        aria-controls="library_ui"
       >
         <span class="icon-bg"><i class="mdi mdi-library menu-icon"></i></span>
         <span class="menu-title">Library Process</span>
@@ -104,21 +129,80 @@
       <div class="collapse" id="library_ui">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a class="nav-link" href="/admin/memberAuth"
+            <a class="nav-link" href="/admin/stuMemberAuth"
               >Student Book Borrowing</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Staff Book Borrowing</a>
+            <a class="nav-link" href="/admin/staMemberAuth"
+              >Staff Book Borrowing</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Student Book Returning</a>
+            <a class="nav-link" href="/admin/borrowingstu"
+              >Book Borrowing Hist(Student)</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Staff Book Returning</a>
+            <a class="nav-link" href="/admin/borrowingsta"
+              >Book Borrowing Hist(Staff)</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Book Borrowing History</a>
+            <a class="nav-link" href="/admin/warningstu"
+              >Student Warning List</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/warningsta">Staff Warning List</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        data-toggle="collapse"
+        href="#librarycd_ui"
+        aria-expanded="false"
+        aria-controls="librarycd_ui"
+      >
+        <span class="icon-bg"><i class="mdi mdi-harddisk menu-icon"></i></span>
+        <span class="menu-title">Library CD Process</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="librarycd_ui">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/cdstuMemberAuth"
+              >Student CD Borrowing</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/cdstaMemberAuth"
+              >Staff CD Borrowing</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/cdborrowingstu"
+              >CD Borrowing Hist(Student)</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/cdborrowingsta"
+              >CD Borrowing Hist(Staff)</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/cdwarningstu"
+              >Student Warning List</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/cdwarningsta"
+              >Staff Warning List</a
+            >
           </li>
         </ul>
       </div>

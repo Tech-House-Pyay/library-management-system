@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <% include ../../partial/head %>
+    <style>
+      .rat {
+        color: gold;
+        text-shadow: 1px 1px gray;
+      }
+    </style>
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css" />
+  </head>
+
+  <body>
+    <!-- Start: Header Section -->
+    <% include ../../partial/header %>
+    <!-- End: Header Section -->
+
+    <!-- Start: Slider Section -->
+    <section class="page-banner services-banner">
+      <div class="container">
+        <div class="banner-header">
+          <h2>CD Detail</h2>
+          <span class="underline center"></span>
+          <p class="lead">You can see details of CD</p>
+        </div>
+        <div class="breadcrumb">
+          <ul>
+            <li><a href="/user/booklist">Books & Media</a></li>
+            <li>CD Detail</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- End: Slider Section -->
+
+    <!-- Start: Search Section -->
+    <div id="content" class="site-content">
+      <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+          <div class="booksmedia-detail-main">
+            <div class="container">
+              <div class="row">
+                <!-- Start: Search Section -->
+                <section class="search-filters">
+                  <div class="container">
+                    <div class="filter-box">
+                      <h3>What are you looking for at the library?</h3>
+                      <form
+                        action="http://libraria.demo.presstigers.com/index.html"
+                        method="get"
+                      >
+                        <div class="col-md-4 col-sm-6">
+                          <div class="form-group">
+                            <label class="sr-only" for="keywords"
+                              >Search by Keyword</label
+                            >
+                            <input
+                              class="form-control"
+                              placeholder="Search by Keyword"
+                              id="keywords"
+                              name="keywords"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                          <div class="form-group">
+                            <select
+                              name="catalog"
+                              id="catalog"
+                              class="form-control"
+                            >
+                              <option>Search the Catalog</option>
+                              <option>Catalog 01</option>
+                              <option>Catalog 02</option>
+                              <option>Catalog 03</option>
+                              <option>Catalog 04</option>
+                              <option>Catalog 05</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                          <div class="form-group">
+                            <select
+                              name="category"
+                              id="category"
+                              class="form-control"
+                            >
+                              <option>All Categories</option>
+                              <option>Category 01</option>
+                              <option>Category 02</option>
+                              <option>Category 03</option>
+                              <option>Category 04</option>
+                              <option>Category 05</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                          <div class="form-group">
+                            <input
+                              class="form-control"
+                              type="submit"
+                              value="Search"
+                            />
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </section>
+                <!-- End: Search Section -->
+              </div>
+              <div class="booksmedia-detail-box">
+                <div class="detailed-box">
+                  <div class="col-xs-12 col-sm-5 col-md-3">
+                    <div class="post-thumbnail">
+                      <div class="book-list-icon blue-icon"></div>
+                      <img src="<%= cd.imgUrl %>" alt="CD Image" />
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-7 col-md-6">
+                    <div class="post-center-content">
+                      <h2><%= cd.name %></h2>
+                      <p><strong>Author:</strong> <%= cd.author_name %></p>
+                      <p><strong>Barcode:</strong> <%= cd.barcode %></p>
+                      <!-- <div
+                        class="rating"
+                        style="<%= locals.user ? '': 'pointer-events:none;' %>"
+                      >
+                        <strong>Rating:</strong>
+                        <span>☆</span>
+                        <span>☆</span>
+                        <span>☆</span>
+                        <span>☆</span>
+                        <span>☆</span>
+                      </div> -->
+
+                      <p></p>
+                      <p><strong>CD:</strong> Book</p>
+                      <p><strong>Main Category</strong> <%= cd.mainCat %></p>
+                      <p><strong>Sub Category:</strong> <%= cd.subCat %></p>
+                      <div class="actions">
+                        <ul>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Booking(coming soon)"
+                            >
+                              <i class="fa fa-shopping-cart"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Like(coming soon)"
+                            >
+                              <i class="fa fa-heart"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="mailto:maymyatmon@ptu.edu.mm"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Mail To Admin"
+                            >
+                              <i class="fa fa-envelope"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Search"
+                            >
+                              <i class="fa fa-search"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Download(only pdf)"
+                            >
+                              <i class="fa fa-download"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              target="_blank"
+                              data-toggle="blog-tags"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Share(coming soon)"
+                            >
+                              <i class="fa fa-share-alt"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="post-right-content">
+                      <h4>Available now</h4>
+                        <strong>Borrowing Duration</strong> <%= cd.rTime %>
+                        days
+                      </p>
+                      <p><strong>Borrowed Count</strong> <%= cd.count %></p>
+
+                      <a href="#." class="btn btn-dark-gray"
+                        >Find Similar Main Category</a
+                      >
+                      <a href="#." class="btn btn-dark-gray"
+                        >Find Similar Sub Category</a
+                      >
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <p><strong>Description:</strong> <%= cd.description %></p>
+
+                <div class="table-tabs" id="responsiveTabs">
+                  <ul class="nav nav-tabs">
+                    <li class="active">
+                      <b class="arrow-up"></b
+                      ><a data-toggle="tab" href="#sectionA">History</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="sectionA" class="tab-pane fade in active">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Library Name</th>
+                            <th>Shelf Number</th>
+                            <th>Material Type</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Oak Park Public Library Main Branch</td>
+                            <td>B PURMORT</td>
+                            <td>Book</td>
+                            <td>In Processing</td>
+                          </tr>
+                          <tr>
+                            <td>Bedford Park Public Library District</td>
+                            <td>616.99 PUR</td>
+                            <td>Book</td>
+                            <td>Due 8/24/16</td>
+                          </tr>
+                          <tr>
+                            <td>Blue Island Public Library</td>
+                            <td>BIO PUR</td>
+                            <td>eBook</td>
+                            <td>Due 8/24/16</td>
+                          </tr>
+                          <tr>
+                            <td>Bridgeview Public Library</td>
+                            <td>B PUR</td>
+                            <td>DVD</td>
+                            <td>In Processing</td>
+                          </tr>
+                          <tr>
+                            <td>Eisenhower Public Library District</td>
+                            <td>616.994 PUR</td>
+                            <td>Magazine</td>
+                            <td>Checked In</td>
+                          </tr>
+                          <tr>
+                            <td>Forest Park Public Library</td>
+                            <td>BIO PURMORT</td>
+                            <td>Magazine</td>
+                            <td>Checked In</td>
+                          </tr>
+                          <tr>
+                            <td>Hinsdale Public Library</td>
+                            <td>B PUR</td>
+                            <td>Audio</td>
+                            <td>Checked In</td>
+                          </tr>
+                          <tr>
+                            <td>Oak Park Public Library Maze Branch</td>
+                            <td>616.99 PUR</td>
+                            <td>Audio</td>
+                            <td>Due 9/10/16</td>
+                          </tr>
+                          <tr>
+                            <td>River Grove Public Library District</td>
+                            <td>616.994 PURMORT</td>
+                            <td>Book</td>
+                            <td>Due 9/10/16</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <!-- End: Search Section -->
+    <!-- Start: Welcome Section -->
+    <!-- End: Welcome Section -->
+    <!-- Start: Category Filter -->
+    <!-- Start: Category Filter -->
+    <!-- Start: Features -->
+    <!-- End: Features -->
+    <!-- Start: Social Network -->
+    <% include ../../partial/social %>
+    <!-- End: Social Network -->
+    <!-- Start: Footer -->
+    <% include ../../partial/footer %>
+    <!-- End: Footer -->
+    <% include ../../partial/script %>
+  </body>
+  
+</html>

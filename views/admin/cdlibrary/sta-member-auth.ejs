@@ -21,7 +21,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title text-center">Check RFID Here</h4>
-                    <form class="forms-sample">
+                    <form class="forms-sample" action="#" id="frm">
                       <div class="form-group">
                         <label for="rfid">Member RFID Code</label>
                         <input
@@ -35,8 +35,7 @@
                       </div>
 
                       <button
-                        type="button"
-                        id="check"
+                        type="submit"
                         class="btn btn-primary mr-2 btn-block"
                       >
                         Check
@@ -71,17 +70,20 @@
     <!-- End custom js for this page -->
   </body>
   <script>
-    $("#check").click(function () {
+    $("#frm").submit(function (e) {
+      e.preventDefault();
+      console.log(e.keyCode);
       var data = { rfid: $("#rfid").val() };
       $.ajax({
-        url: "/admin/checkAuth",
+        url: "/admin/cdcheckAuthSta",
         data: data,
         type: "POST",
         success: function (result) {
-          console.log(result);
-
           if (result.data != null) {
-            alert(result);
+            location.href = "/admin/cdstamember/" + result.data._id;
+          } else {
+            alert("RFID number not found");
+            location.href = "/admin/cdstaMemberAuth";
           }
         },
       });

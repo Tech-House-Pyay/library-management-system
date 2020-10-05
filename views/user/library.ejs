@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <% include ../partial/head %>
+  </head>
+
+  <body>
+    <!-- Start: Header Section -->
+    <% include ../partial/header %>
+    <!-- End: Header Section -->
+
+    <!-- Start: Page Banner -->
+    <section class="page-banner services-banner">
+      <div class="container">
+        <div class="banner-header">
+          <h2>Library</h2>
+          <span class="underline center"></span>
+          <p class="lead">This is our library</p>
+        </div>
+        <div class="breadcrumb">
+          <ul>
+            <li><a href="/user">Home</a></li>
+            <li>Library</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- End: Page Banner -->
+
+    <!-- Start: Contact Us Section -->
+    <div id="content" class="site-content">
+      <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+          <div class="books-media-list">
+            <section class="team staff-picks">
+              <div class="container">
+                <div class="center-content">
+                  <h2 class="section-title">Top 3 Book Packs</h2>
+                  <span class="underline center"></span>
+                  <p class="lead">Selected by borrowed count</p>
+                </div>
+                <div class="team-list" style="max-height: max-content">
+                  <% if(tbook.length < 3){%>
+                  <h2>Book need to insert atleast 3 books</h2>
+                  <%}else{%> <% for(var i = 0; i < tbook.length; i++){%>
+                  <div class="team-member">
+                    <figure>
+                      <img src="<%= tbook[i].imgUrl%>" alt="images" />
+                    </figure>
+                    <div class="content-block">
+                      <div class="member-info">
+                        <div class="member-thumb">
+                          <img
+                            src="/images/books-media/staff-pick/gail.jpg"
+                            alt="Katherine"
+                          />
+                        </div>
+                        <div class="member-content">
+                          <span class="designation"
+                            ><%= tbook[i].mainCat %>, <%= tbook[i].subCat
+                            %></span
+                          >
+                          <h4><%= tbook[i].author_name %></h4>
+                        </div>
+                        <p><%= tbook[i].description %></p>
+                        <a
+                          class="btn btn-primary"
+                          href="/user/bookdetail/<%= tbook[i]._id %>"
+                          >Read More</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <%}%> <%}%>
+                </div>
+              </div>
+            </section>
+            <div class="booksmedia-fullwidth">
+              <div class="container">
+                <h2 class="section-title text-center">Popular Books</h2>
+                <span class="underline center"></span>
+                <p class="lead text-center">Base on book's rating</p>
+                <ul class="popular-items-detail-v2">
+                  <% for(var j = 0; j < pbook.length; j++){%>
+                  <li>
+                    <div class="book-list-icon blue-icon"></div>
+                    <figure>
+                      <img src="<%= pbook[j].imgUrl %>" alt="Book" />
+                      <figcaption>
+                        <header>
+                          <h4>
+                            <a href="/user/bookdetail/<%= pbook[j]._id %>"
+                              ><%= pbook[j].name %></a
+                            >
+                          </h4>
+                          <p>
+                            <strong>Author:</strong> <%= pbook[j].author_name %>
+                          </p>
+                          <p>
+                            <strong>Barcode:</strong><%= pbook[j].barcode %>
+                          </p>
+                        </header>
+                        <p><%= pbook[j].description %></p>
+                        <!-- <div class="actions">
+                          <ul>
+                            <li>
+                              <a
+                                href="#"
+                                target="_blank"
+                                data-toggle="blog-tags"
+                                data-placement="top"
+                                title="Add To Cart"
+                              >
+                                <i class="fa fa-shopping-cart"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                target="_blank"
+                                data-toggle="blog-tags"
+                                data-placement="top"
+                                title="Like"
+                              >
+                                <i class="fa fa-heart"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                target="_blank"
+                                data-toggle="blog-tags"
+                                data-placement="top"
+                                title="Mail"
+                                ><i class="fa fa-envelope"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                target="_blank"
+                                data-toggle="blog-tags"
+                                data-placement="top"
+                                title="Search"
+                              >
+                                <i class="fa fa-search"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                target="_blank"
+                                data-toggle="blog-tags"
+                                data-placement="top"
+                                title="Print"
+                              >
+                                <i class="fa fa-print"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                target="_blank"
+                                data-toggle="blog-tags"
+                                data-placement="top"
+                                title="Print"
+                              >
+                                <i class="fa fa-share-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div> -->
+                      </figcaption>
+                    </figure>
+                  </li>
+                  <%}%>
+                </ul>
+              </div>
+            </div>
+            <section class="team staff-picks">
+              <div class="container">
+                <div class="center-content">
+                  <h2 class="section-title">Top 3 CD Packs</h2>
+                  <span class="underline center"></span>
+                  <p class="lead">Selected by borrowed count</p>
+                </div>
+                <div class="team-list">
+                  <% if(tcd.length < 3){%>
+                  <h2>CD need to insert atleast 3 CDs</h2>
+                  <%}else{%> <% for(var i = 0; i < tcd.length; i++){%>
+                  <div class="team-member">
+                    <figure>
+                      <img src="<%= tcd[i].imgUrl%>" alt="images" />
+                    </figure>
+                    <div class="content-block">
+                      <div class="member-info">
+                        <div class="member-thumb">
+                          <img
+                            src="/images/books-media/staff-pick/gail.jpg"
+                            alt="Katherine"
+                          />
+                        </div>
+                        <div class="member-content">
+                          <span class="designation"
+                            ><%= tcd[i].mainCat %>, %= tcd[i].subCat %></span
+                          >
+                          <h4><%= tcd[i].author_name %></h4>
+                        </div>
+                        <p><%= tcd[i].description %></p>
+                        <a
+                          class="btn btn-primary"
+                          href="/user/cddetail/<%= tcd[i]._id %>"
+                          >Read More</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <%}%> <%}%>
+                </div>
+              </div>
+            </section>
+            <div class="fun-stuff">
+              <div class="container">
+                <div class="facts-counter">
+                  <ul>
+                    <li class="col-sm-6">
+                      <a href="/user/booklist">
+                        <div class="fact-item icon-ebooks">
+                          <div class="fact-icon">
+                            <img src="/images/icon-ebooks.png" alt="" />
+                          </div>
+                          <span
+                            >Books<strong class="fact-counter">3</strong></span
+                          >
+                        </div>
+                      </a>
+                    </li>
+                    <li class="col-sm-6">
+                      <a href="/user/cdlist">
+                        <div class="fact-item icon-eaudio">
+                          <div class="fact-icon">
+                            <img src="/images/icon-videos.png" alt="" />
+                          </div>
+                          <span>CD<strong class="fact-counter">3</strong></span>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <!-- End: Contact Us Section -->
+
+    <!-- Start: Social Network -->
+    <% include ../partial/social %>
+    <!-- End: Social Network -->
+
+    <!-- Start: Footer -->
+    <% include ../partial/footer %>
+    <!-- End: Footer -->
+
+    <% include ../partial/script %>
+  </body>
+</html>
