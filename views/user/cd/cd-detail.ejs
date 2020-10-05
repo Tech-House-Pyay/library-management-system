@@ -46,15 +46,10 @@
                   <div class="container">
                     <div class="filter-box">
                       <h3>What are you looking for at the library?</h3>
-                      <form
-                        action="http://libraria.demo.presstigers.com/index.html"
-                        method="get"
-                      >
-                        <div class="col-md-4 col-sm-6">
+                      <form action="/user/cdlist" method="post" name="frm">
+                        <input type="hidden" name="currpage" />
+                        <div class="col-md-5 col-sm-6">
                           <div class="form-group">
-                            <label class="sr-only" for="keywords"
-                              >Search by Keyword</label
-                            >
                             <input
                               class="form-control"
                               placeholder="Search by Keyword"
@@ -64,45 +59,22 @@
                             />
                           </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
+            
+                        <div class="col-md-5 col-sm-6">
                           <div class="form-group">
-                            <select
-                              name="catalog"
-                              id="catalog"
-                              class="form-control"
-                            >
-                              <option>Search the Catalog</option>
-                              <option>Catalog 01</option>
-                              <option>Catalog 02</option>
-                              <option>Catalog 03</option>
-                              <option>Catalog 04</option>
-                              <option>Catalog 05</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                          <div class="form-group">
-                            <select
-                              name="category"
-                              id="category"
-                              class="form-control"
-                            >
-                              <option>All Categories</option>
-                              <option>Category 01</option>
-                              <option>Category 02</option>
-                              <option>Category 03</option>
-                              <option>Category 04</option>
-                              <option>Category 05</option>
+                            <select name="category" id="category" class="form-control">
+                              <option value="">All Categories</option>
+                              <% for( var i = 0; i < category.length; i++){%>
+                              <option value="<%= category[i]._id %>">
+                                <%= category[i]._id %>
+                              </option>
+                              <%}%>
                             </select>
                           </div>
                         </div>
                         <div class="col-md-2 col-sm-6">
                           <div class="form-group">
-                            <input
-                              class="form-control"
-                              type="submit"
-                              value="Search"
-                            />
+                            <input class="form-control" type="submit" value="Search" />
                           </div>
                         </div>
                       </form>
@@ -120,27 +92,15 @@
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-7 col-md-6">
-                    <div class="post-center-content">
+                    <div class="post-center-content col-md-12">
                       <h2><%= cd.name %></h2>
-                      <p><strong>Author:</strong> <%= cd.author_name %></p>
-                      <p><strong>Barcode:</strong> <%= cd.barcode %></p>
-                      <!-- <div
-                        class="rating"
-                        style="<%= locals.user ? '': 'pointer-events:none;' %>"
-                      >
-                        <strong>Rating:</strong>
-                        <span>☆</span>
-                        <span>☆</span>
-                        <span>☆</span>
-                        <span>☆</span>
-                        <span>☆</span>
-                      </div> -->
-
-                      <p></p>
-                      <p><strong>CD:</strong> Book</p>
-                      <p><strong>Main Category</strong> <%= cd.mainCat %></p>
-                      <p><strong>Sub Category:</strong> <%= cd.subCat %></p>
-                      <div class="actions">
+                      <p><strong>Author:</strong><br> <%= cd.author_name %></p><p></p>
+                      <p><strong>Barcode:</strong><br> <%= cd.barcode %></p>
+                   
+                      <p><strong>CD:</strong><br> Book</p>
+                      <p><strong>Main Category</strong><br> <%= cd.mainCat %></p>
+                      <p><strong>Sub Category:</strong><br> <%= cd.subCat %></p>
+                      <!-- <div class="actions">
                         <ul>
                           <li>
                             <a
@@ -215,23 +175,23 @@
                             </a>
                           </li>
                         </ul>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-3">
                     <div class="post-right-content">
-                      <h4>Available now</h4>
+                      <h4><%= (cd.copy < 1)? 'Not Available ':'Available now' %></h4>
                         <strong>Borrowing Duration</strong> <%= cd.rTime %>
                         days
                       </p>
                       <p><strong>Borrowed Count</strong> <%= cd.count %></p>
 
-                      <a href="#." class="btn btn-dark-gray"
-                        >Find Similar Main Category</a
+                      <form action="/user/cdlist" method="post">
+                        <input type="hidden" name="category" value="<%= cd.mainCat %>">
+                      <button type="submit"  class="btn btn-dark-gray"
+                        >Find Similar Main Category</button
                       >
-                      <a href="#." class="btn btn-dark-gray"
-                        >Find Similar Sub Category</a
-                      >
+                    </form>
                     </div>
                   </div>
                   <div class="clearfix"></div>
@@ -251,67 +211,19 @@
                       <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th>Library Name</th>
-                            <th>Shelf Number</th>
+                            <th>CD Name</th>
                             <th>Material Type</th>
                             <th>Status</th>
                           </tr>
                         </thead>
                         <tbody>
+                          <% for(var i = 0; i < records.length; i++){%>
                           <tr>
-                            <td>Oak Park Public Library Main Branch</td>
-                            <td>B PURMORT</td>
-                            <td>Book</td>
-                            <td>In Processing</td>
+                            <td><%= cd.name %></td>
+                            <td>CD</td>
+                            <td><%= (records[i].status == '01')? 'Return': 'Borrow' %></td>
                           </tr>
-                          <tr>
-                            <td>Bedford Park Public Library District</td>
-                            <td>616.99 PUR</td>
-                            <td>Book</td>
-                            <td>Due 8/24/16</td>
-                          </tr>
-                          <tr>
-                            <td>Blue Island Public Library</td>
-                            <td>BIO PUR</td>
-                            <td>eBook</td>
-                            <td>Due 8/24/16</td>
-                          </tr>
-                          <tr>
-                            <td>Bridgeview Public Library</td>
-                            <td>B PUR</td>
-                            <td>DVD</td>
-                            <td>In Processing</td>
-                          </tr>
-                          <tr>
-                            <td>Eisenhower Public Library District</td>
-                            <td>616.994 PUR</td>
-                            <td>Magazine</td>
-                            <td>Checked In</td>
-                          </tr>
-                          <tr>
-                            <td>Forest Park Public Library</td>
-                            <td>BIO PURMORT</td>
-                            <td>Magazine</td>
-                            <td>Checked In</td>
-                          </tr>
-                          <tr>
-                            <td>Hinsdale Public Library</td>
-                            <td>B PUR</td>
-                            <td>Audio</td>
-                            <td>Checked In</td>
-                          </tr>
-                          <tr>
-                            <td>Oak Park Public Library Maze Branch</td>
-                            <td>616.99 PUR</td>
-                            <td>Audio</td>
-                            <td>Due 9/10/16</td>
-                          </tr>
-                          <tr>
-                            <td>River Grove Public Library District</td>
-                            <td>616.994 PURMORT</td>
-                            <td>Book</td>
-                            <td>Due 9/10/16</td>
-                          </tr>
+                        <%}%>
                         </tbody>
                       </table>
                     </div>

@@ -8,7 +8,7 @@
               <div class="navbar-brand">
                 <h1>
                   <a href="index-2.html">
-                    <img src="/images/libraria-logo-v1.png" alt="LIBRARIA" />
+                    <img src="/images/logoSL.png" alt="LIBRARIA" />
                   </a>
                 </h1>
               </div>
@@ -73,7 +73,7 @@
                       <a href="/user/booklist">Book</a>
                     </li>
                     <li>
-                      <a href="/user/cdlist">E Book</a>
+                      <a href="/user/cdlist">CD</a>
                     </li>
                   </ul>
                 </li>
@@ -84,7 +84,9 @@
                   <a href="/user/rule">Rules and Desciplines</a>
                 </li>
                 <li><a href="/user/contact">Contact</a></li>
-                <li><a href="#">History</a></li>
+                <% if(locals.user){%>
+                <li><a href="/user/history">History</a></li>
+                <%}%>
               </ul>
             </div>
           </div>
@@ -108,7 +110,7 @@
                     <a href="/user/booklist">Book</a>
                   </li>
                   <li>
-                    <a href="/user/cdlist">E Book</a>
+                    <a href="/user/cdlist">CD</a>
                   </li>
                   </li>
                 </ul>
@@ -120,7 +122,9 @@
                 <a href="/user/rule">Rules and Desciplines</a>
               </li>
               <li><a href="/user/contact">Contact</a></li>
-              <li><a href="#">History</a></li>
+              <% if(locals.user){%>
+              <li><a href="/user/history">History</a></li>
+              <%}%>
             </ul>
           </div>
         </div>

@@ -68,6 +68,10 @@ StudentSchema.virtual("updated_date").get(function () {
   return dateformat(this.updated, "dd/mm/yyyy HH:MM");
 });
 
+StudentSchema.virtual("last_borrow_date").get(function () {
+  return dateformat(this.last_borrow, "dd/mm/yyyy HH:MM");
+});
+
 StudentSchema.virtual("inserted_date").get(function () {
   return dateformat(this.instered, "dd/mm/yyyy HH:MM");
 });

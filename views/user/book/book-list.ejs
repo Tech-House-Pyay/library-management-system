@@ -13,14 +13,14 @@
     <section class="page-banner services-banner">
       <div class="container">
         <div class="banner-header">
-          <h2>Books & Media Listing</h2>
+          <h2>Books List</h2>
           <span class="underline center"></span>
-          <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+          <p class="lead">Here avaliable Book list at library</p>
         </div>
         <div class="breadcrumb">
           <ul>
-            <li><a href="index-2.html">Home</a></li>
-            <li>Books & Media</li>
+            <li><a href="/user">Home</a></li>
+            <li>Book List</li>
           </ul>
         </div>
       </div>
@@ -37,22 +37,21 @@
               <section class="search-filters">
                 <div class="filter-box">
                   <h3>What are you looking for at the library?</h3>
-                  <form
-                    action="http://libraria.demo.presstigers.com/index.html"
-                    method="get"
-                  >
-                    <div class="col-md-4 col-sm-6">
+                  <form action="/user/booklist" method="post" name="frm">
+                    <input type="hidden" name="currpage" />
+                    <div class="col-md-5 col-sm-6">
                       <div class="form-group">
                         <input
                           class="form-control"
                           placeholder="Search by Keyword"
                           id="keywords"
                           name="keywords"
+                          value="<%= search.keywords %>"
                           type="text"
                         />
                       </div>
                     </div>
-                    <div class="col-md-3 col-sm-6">
+                    <!-- <div class="col-md-3 col-sm-6">
                       <div class="form-group">
                         <select
                           name="catalog"
@@ -67,20 +66,20 @@
                           <option>Catalog 05</option>
                         </select>
                       </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
+                    </div> -->
+                    <div class="col-md-5 col-sm-6">
                       <div class="form-group">
                         <select
                           name="category"
                           id="category"
                           class="form-control"
                         >
-                          <option>All Categories</option>
-                          <option>Category 01</option>
-                          <option>Category 02</option>
-                          <option>Category 03</option>
-                          <option>Category 04</option>
-                          <option>Category 05</option>
+                          <option value="">All Categories</option>
+                          <% for( var i = 0; i < category.length; i++){%>
+                          <option value="<%= category[i]._id %>">
+                            <%= category[i]._id %>
+                          </option>
+                          <%}%>
                         </select>
                       </div>
                     </div>
@@ -100,7 +99,7 @@
               <!-- End: Search Section -->
 
               <div class="filter-options margin-list">
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-md-3 col-sm-3">
                     <select name="orderby">
                       <option selected="selected">Sort by Title</option>
@@ -137,7 +136,7 @@
                       <option>Sort by price</option>
                     </select>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="booksmedia-fullwidth">
                 <ul>
@@ -166,7 +165,7 @@
                           </p>
                         </header>
                         <p><%= books[i].description %></p>
-                        <div class="actions">
+                        <!-- <div class="actions">
                           <ul>
                             <li>
                               <a
@@ -235,7 +234,7 @@
                               </a>
                             </li>
                           </ul>
-                        </div>
+                        </div> -->
                       </figcaption>
                     </figure>
                   </li>
@@ -245,14 +244,21 @@
               <nav class="navigation pagination text-center">
                 <h2 class="screen-reader-text">Posts navigation</h2>
                 <div class="nav-links">
-                  <a class="prev page-numbers" href="#."
+                  <a
+                    class="prev page-numbers <%= (paging.skip.prev < 0)?'disabled':''%>"
+                    href="javascript:go(<%= paging.skip.prev %>)"
                     ><i class="fa fa-long-arrow-left"></i> Previous</a
                   >
-                  <a class="page-numbers" href="#.">1</a>
-                  <span class="page-numbers current">2</span>
-                  <a class="page-numbers" href="#.">3</a>
-                  <a class="page-numbers" href="#.">4</a>
-                  <a class="next page-numbers" href="#."
+                  <% for(var i = paging.start; i<= paging.end; i++){%>
+                  <a
+                    class="page-numbers <%=(i == paging.currpage)?'current':''%>"
+                    href="javascript:go(<%= i %>)"
+                    ><%= i %></a
+                  >
+                  <%}%>
+                  <a
+                    class="next page-numbers <%= (paging.skip.next > paging.total)?'disabled':''%>"
+                    href="javascript:go(<%= paging.skip.next%>)"
                     >Next <i class="fa fa-long-arrow-right"></i
                   ></a>
                 </div>
@@ -277,61 +283,7 @@
     <!-- End: Features -->
 
     <!-- Start: Social Network -->
-    <section class="social-network section-padding">
-      <div class="container">
-        <div class="center-content">
-          <h2 class="section-title">Follow Us</h2>
-          <span class="underline center"></span>
-          <p class="lead">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-        </div>
-        <ul>
-          <li>
-            <a class="facebook" href="#" target="_blank">
-              <span>
-                <i class="fa fa-facebook-f"></i>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a class="twitter" href="#" target="_blank">
-              <span>
-                <i class="fa fa-twitter"></i>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a class="google" href="#" target="_blank">
-              <span>
-                <i class="fa fa-google-plus"></i>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a class="rss" href="#" target="_blank">
-              <span>
-                <i class="fa fa-rss"></i>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a class="linkedin" href="#" target="_blank">
-              <span>
-                <i class="fa fa-linkedin"></i>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a class="youtube" href="#" target="_blank">
-              <span>
-                <i class="fa fa-youtube"></i>
-              </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <% include ../../partial/social %>
     <!-- End: Social Network -->
 
     <!-- Start: Footer -->
@@ -340,4 +292,21 @@
 
     <% include ../../partial/script %>
   </body>
+  <script>
+      function go(page) {
+        if(page == -1 || page> (<%= paging.total %>)) return;
+        frm.currpage.value = page;
+        frm.submit();
+      }
+      $('.disabled').click(function(e){
+      e.preventDefault();
+    });
+    $(function(){
+      $('.select-styled').text("<%= (search.category != undefined)? search.category: 'All Categories' %>")
+
+      <%if(search.category == ''){%>
+        $('.select-styled').text('All Categories');
+      <%}%>
+    })
+  </script>
 </html>

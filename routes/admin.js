@@ -109,10 +109,10 @@ router.post("/addstuM", auth, function (req, res) {
   student.year = req.body.year;
   student.rollNo = req.body.roll;
   student.phone = req.body.phone;
-  console.log(student);
+  // console.log(student);
   student.save(function (err, rtn) {
     if (err) throw err;
-    console.log(rtn);
+    // console.log(rtn);
     res.redirect("/admin/studentMList");
   });
 });
@@ -404,7 +404,7 @@ router.post("/cdborrowstu", auth, (req, res, next) => {
     (err3, upd) => {
       if (err3) throw err3;
       var cdrecord = new CdRecord();
-      console.log("don1", upd);
+      // console.log("don1", upd);
       cdrecord.student_id = upd._id;
       cdrecord.type = "00";
       cdrecord.status = "00";
@@ -413,8 +413,8 @@ router.post("/cdborrowstu", auth, (req, res, next) => {
       cdrecord.tol_range = req.body.tol_dur;
       var keys = JSON.parse(req.body.bor);
 
-      console.log(keys);
-      console.log(typeof keys, keys);
+      // console.log(keys);
+      // console.log(typeof keys, keys);
       // TODO check borrowed book and return warning message
       Cd.update(
         {
@@ -449,10 +449,10 @@ router.post("/cdborrowstu", auth, (req, res, next) => {
             },
             function (err4, rtn4) {
               if (err4) throw err4;
-              console.log("klklkl", rtn4);
+              // console.log("klklkl", rtn4);
             }
           );
-          console.log("cd borrowed", rtn);
+          // console.log("cd borrowed", rtn);
           Cd.find(
             {
               _id: {
@@ -498,7 +498,7 @@ router.post("/cdborrowsta", auth, (req, res, next) => {
     (err3, upd) => {
       if (err3) throw err3;
       var cdrecord = new CdRecord();
-      console.log("don1", upd);
+      // console.log("don1", upd);
       cdrecord.staff_id = upd._id;
       cdrecord.type = "00";
       cdrecord.status = "00";
@@ -507,8 +507,8 @@ router.post("/cdborrowsta", auth, (req, res, next) => {
       cdrecord.tol_range = req.body.tol_dur;
       var keys = JSON.parse(req.body.bor);
 
-      console.log(keys);
-      console.log(typeof keys, keys);
+      // console.log(keys);
+      // console.log(typeof keys, keys);
       // TODO check borrowed book and return warning message
       Cd.update(
         {
@@ -543,10 +543,10 @@ router.post("/cdborrowsta", auth, (req, res, next) => {
             },
             function (err4, rtn4) {
               if (err4) throw err4;
-              console.log("klklkl", rtn4);
+              // console.log("klklkl", rtn4);
             }
           );
-          console.log("cd borrowed", rtn);
+          // console.log("cd borrowed", rtn);
           Cd.find(
             {
               _id: {
@@ -595,15 +595,15 @@ router.post("/cdreturnstu/:id", auth, function (req, res) {
     },
     (err, rec) => {
       if (err) throw err;
-      console.log("This is cd from", rec.cds);
+      // console.log("This is cd from", rec.cds);
       for (var y = 0; rec.cds.length > y; y++) {
-        console.log("call");
+        // console.log("call");
         idx.push(rec.cds[y].cd_id);
       }
-      console.log(typeof idx, idx);
+      // console.log(typeof idx, idx);
       for (var i in idx) {
         idx[i] = mongoose.Types.ObjectId(idx[i]);
-        console.log(idx[i], typeof idx[i]);
+        // console.log(idx[i], typeof idx[i]);
       }
 
       Cd.update(
@@ -622,7 +622,7 @@ router.post("/cdreturnstu/:id", auth, function (req, res) {
         },
         function (err, rtn) {
           if (err) throw err;
-          console.log("cd updated", rtn);
+          // console.log("cd updated", rtn);
           Student.findByIdAndUpdate(
             rec.student_id,
             {
@@ -664,15 +664,14 @@ router.post("/cdreturnsta/:id", auth, function (req, res) {
     },
     (err, rec) => {
       if (err) throw err;
-      console.log("This is book from", rec.cds);
+
       for (var y = 0; rec.cds.length > y; y++) {
-        console.log("call");
         idx.push(rec.cds[y].cd_id);
       }
-      console.log(typeof idx, idx);
+      // console.log(typeof idx, idx);
       for (var i in idx) {
         idx[i] = mongoose.Types.ObjectId(idx[i]);
-        console.log(idx[i], typeof idx[i]);
+        // console.log(idx[i], typeof idx[i]);
       }
 
       Cd.update(
@@ -691,7 +690,7 @@ router.post("/cdreturnsta/:id", auth, function (req, res) {
         },
         function (err, rtn) {
           if (err) throw err;
-          console.log("cd updated", rtn);
+          // console.log("cd updated", rtn);
           Staff.findByIdAndUpdate(
             rec.staff_id,
             {
@@ -758,12 +757,12 @@ router.post("/cdwarningstu", (req, res) => {
       for (var i = 0; i < rtn.length; i++) {
         var today = new Date();
         rtn[i].borrowed.setDate(rtn[i].borrowed.getDate() + rtn[i].tol_range);
-        console.log(rtn[i].borrowed.getDate(), today.getDate());
+        // console.log(rtn[i].borrowed.getDate(), today.getDate());
         if (
           rtn[i].borrowed.getDate() < today.getDate() &&
-          rtn[i].member_id != null
+          rtn[i].student_id._id != null
         ) {
-          console.log("need to set member to warning member", rtn[i]);
+          // console.log("need to set member to warning member", rtn[i]);
           Student.findByIdAndUpdate(
             rtn[i].student_id._id,
             {
@@ -774,11 +773,11 @@ router.post("/cdwarningstu", (req, res) => {
             },
             (err2, rtn2) => {
               if (err2) throw err2;
-              console.log("succefully change");
+              // console.log("succefully change");
             }
           );
         } else {
-          console.log("This is normal");
+          // console.log("This is normal");
         }
       }
       res.json({ status: true });
@@ -804,12 +803,12 @@ router.post("/cdwarningsta", (req, res) => {
       for (var i = 0; i < rtn.length; i++) {
         var today = new Date();
         rtn[i].borrowed.setDate(rtn[i].borrowed.getDate() + rtn[i].tol_range);
-        console.log(rtn[i].borrowed.getDate(), today.getDate());
+        // console.log(rtn[i].borrowed.getDate(), today.getDate());
         if (
           rtn[i].borrowed.getDate() < today.getDate() &&
-          rtn[i].member_id != null
+          rtn[i].staff_id._id != null
         ) {
-          console.log("need to set member to warning member", rtn[i]);
+          // console.log("need to set member to warning member", rtn[i]);
           Staff.findByIdAndUpdate(
             rtn[i].staff_id._id,
             {
@@ -820,11 +819,11 @@ router.post("/cdwarningsta", (req, res) => {
             },
             (err2, rtn2) => {
               if (err2) throw err2;
-              console.log("succefully change");
+              // console.log("succefully change");
             }
           );
         } else {
-          console.log("This is normal");
+          // console.log("This is normal");
         }
       }
       res.json({ status: true });
@@ -955,7 +954,7 @@ router.post("/borrowstu", auth, (req, res, next) => {
     (err3, upd) => {
       if (err3) throw err3;
       var record = new Record();
-      console.log("don1", upd);
+      // console.log("don1", upd);
       record.student_id = upd._id;
       record.type = "00";
       record.status = "00";
@@ -964,8 +963,8 @@ router.post("/borrowstu", auth, (req, res, next) => {
       record.tol_range = req.body.tol_dur;
       var keys = JSON.parse(req.body.bor);
 
-      console.log(keys);
-      console.log(typeof keys, keys);
+      // console.log(keys);
+      // console.log(typeof keys, keys);
       // TODO check borrowed book and return warning message
       Book.update(
         {
@@ -1001,10 +1000,10 @@ router.post("/borrowstu", auth, (req, res, next) => {
             },
             function (err4, rtn4) {
               if (err4) throw err4;
-              console.log("klklkl", rtn4);
+              // console.log("klklkl", rtn4);
             }
           );
-          console.log("book borrowed", rtn);
+          // console.log("book borrowed", rtn);
           Book.find(
             {
               _id: {
@@ -1050,7 +1049,7 @@ router.post("/borrowsta", auth, (req, res, next) => {
     (err3, upd) => {
       if (err3) throw err3;
       var record = new Record();
-      console.log("don1", upd);
+      // console.log("don1", upd);
       record.staff_id = upd._id;
       record.type = "00";
       record.status = "00";
@@ -1059,8 +1058,8 @@ router.post("/borrowsta", auth, (req, res, next) => {
       record.tol_range = req.body.tol_dur;
       var keys = JSON.parse(req.body.bor);
 
-      console.log(keys);
-      console.log(typeof keys, keys);
+      // console.log(keys);
+      // console.log(typeof keys, keys);
       // TODO check borrowed book and return warning message
       Book.update(
         {
@@ -1096,10 +1095,10 @@ router.post("/borrowsta", auth, (req, res, next) => {
             },
             function (err4, rtn4) {
               if (err4) throw err4;
-              console.log("klklkl", rtn4);
+              // console.log("klklkl", rtn4);
             }
           );
-          console.log("book borrowed", rtn);
+          // console.log("book borrowed", rtn);
           Book.find(
             {
               _id: {
@@ -1148,15 +1147,15 @@ router.post("/returnstu/:id", auth, function (req, res) {
     },
     (err, rec) => {
       if (err) throw err;
-      console.log("This is book from", rec.books);
+      // console.log("This is book from", rec.books);
       for (var y = 0; rec.books.length > y; y++) {
-        console.log("call");
+        // console.log("call");
         idx.push(rec.books[y].book_id);
       }
-      console.log(typeof idx, idx);
+      // console.log(typeof idx, idx);
       for (var i in idx) {
         idx[i] = mongoose.Types.ObjectId(idx[i]);
-        console.log(idx[i], typeof idx[i]);
+        // console.log(idx[i], typeof idx[i]);
       }
 
       Book.update(
@@ -1178,7 +1177,7 @@ router.post("/returnstu/:id", auth, function (req, res) {
         },
         function (err, rtn) {
           if (err) throw err;
-          console.log("book updated", rtn);
+          // console.log("book updated", rtn);
           Student.findByIdAndUpdate(
             rec.student_id,
             {
@@ -1220,15 +1219,15 @@ router.post("/returnsta/:id", auth, function (req, res) {
     },
     (err, rec) => {
       if (err) throw err;
-      console.log("This is book from", rec.books);
+      // console.log("This is book from", rec.books);
       for (var y = 0; rec.books.length > y; y++) {
-        console.log("call");
+        // console.log("call");
         idx.push(rec.books[y].book_id);
       }
-      console.log(typeof idx, idx);
+      // console.log(typeof idx, idx);
       for (var i in idx) {
         idx[i] = mongoose.Types.ObjectId(idx[i]);
-        console.log(idx[i], typeof idx[i]);
+        // console.log(idx[i], typeof idx[i]);
       }
 
       Book.update(
@@ -1250,7 +1249,7 @@ router.post("/returnsta/:id", auth, function (req, res) {
         },
         function (err, rtn) {
           if (err) throw err;
-          console.log("book updated", rtn);
+          // console.log("book updated", rtn);
           Staff.findByIdAndUpdate(
             rec.staff_id,
             {
@@ -1314,12 +1313,12 @@ router.post("/warningstu", (req, res) => {
       for (var i = 0; i < rtn.length; i++) {
         var today = new Date();
         rtn[i].borrowed.setDate(rtn[i].borrowed.getDate() + rtn[i].tol_range);
-        console.log(rtn[i].borrowed.getDate(), today.getDate());
+        // console.log(rtn[i].borrowed.getDate(), today.getDate());
         if (
           rtn[i].borrowed.getDate() < today.getDate() &&
-          rtn[i].member_id != null
+          rtn[i].student_id._id != null
         ) {
-          console.log("need to set member to warning member", rtn[i]);
+          // console.log("need to set member to warning member", rtn[i]);
           Student.findByIdAndUpdate(
             rtn[i].student_id._id,
             {
@@ -1330,11 +1329,11 @@ router.post("/warningstu", (req, res) => {
             },
             (err2, rtn2) => {
               if (err2) throw err2;
-              console.log("succefully change");
+              // console.log("succefully change");
             }
           );
         } else {
-          console.log("This is normal");
+          // console.log("This is normal");
         }
       }
       res.json({ status: true });
@@ -1360,12 +1359,12 @@ router.post("/warningsta", (req, res) => {
       for (var i = 0; i < rtn.length; i++) {
         var today = new Date();
         rtn[i].borrowed.setDate(rtn[i].borrowed.getDate() + rtn[i].tol_range);
-        console.log(rtn[i].borrowed.getDate(), today.getDate());
+        // console.log(rtn[i].borrowed.getDate(), today.getDate());
         if (
           rtn[i].borrowed.getDate() < today.getDate() &&
-          rtn[i].member_id != null
+          rtn[i].staff_id._id != null
         ) {
-          console.log("need to set member to warning member", rtn[i]);
+          // console.log("need to set member to warning member", rtn[i]);
           Staff.findByIdAndUpdate(
             rtn[i].staff_id._id,
             {
@@ -1376,11 +1375,11 @@ router.post("/warningsta", (req, res) => {
             },
             (err2, rtn2) => {
               if (err2) throw err2;
-              console.log("succefully change");
+              // console.log("succefully change");
             }
           );
         } else {
-          console.log("This is normal");
+          // console.log("This is normal");
         }
       }
       res.json({ status: true });
@@ -1462,7 +1461,7 @@ router.post("/checkMemSta", auth, function (req, res) {
 });
 
 router.post("/checkRegSta", auth, function (req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   Staff.findOne({
     $and: [
       { name: req.body.name },
@@ -1471,13 +1470,13 @@ router.post("/checkRegSta", auth, function (req, res) {
     ],
   }).exec(function (err, rtn) {
     if (err) throw err;
-    console.log(rtn);
+    // console.log(rtn);
     res.json({ status: rtn });
   });
 });
 
 router.post("/checkRegStu", auth, function (req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   Student.findOne({
     $and: [
       { major: req.body.major },
@@ -1486,7 +1485,7 @@ router.post("/checkRegStu", auth, function (req, res) {
     ],
   }).exec(function (err, rtn) {
     if (err) throw err;
-    console.log(rtn);
+    // console.log(rtn);
     res.json({ status: rtn });
   });
 });

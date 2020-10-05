@@ -60,6 +60,10 @@ StaffSchema.statics.compare = function (cleartext, encrypted) {
 };
 
 //hashing a password before saving it to the database
+StaffSchema.virtual("last_borrow_date").get(function () {
+  return dateformat(this.last_borrow, "dd/mm/yyyy HH:MM");
+});
+
 StaffSchema.virtual("updated_date").get(function () {
   return dateformat(this.updated, "dd/mm/yyyy HH:MM");
 });

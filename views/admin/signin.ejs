@@ -62,8 +62,12 @@
                   >
                     <div class="form-check">
                       <label class="form-check-label text-muted">
-                        <input type="checkbox" class="form-check-input" /> Keep
-                        me signed in
+                        <input
+                          type="checkbox"
+                          id="rememberMe"
+                          class="form-check-input"
+                        />
+                        Keep me signed in
                       </label>
                     </div>
                   </div>
@@ -96,4 +100,18 @@
     <script src="/assets/js/misc.js"></script>
     <!-- endinject -->
   </body>
+  <script src="/javascripts/js.cookie.min.js"></script>
+  <script>
+    $("#rememberMe").click(function () {
+      if ($("#rememberMe").prop("checked") == true) {
+        Cookies.set("email", $("#exampleInputEmail1").val());
+      } else {
+        Cookies.remove("email");
+      }
+    });
+    if (Cookies.get("email")) {
+      $("#exampleInputEmail1").val(Cookies.get("email"));
+      $("#rememberMe").prop("checked", true);
+    }
+  </script>
 </html>

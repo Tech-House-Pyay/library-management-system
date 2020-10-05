@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <% include ../partial/head %>
+  </head>
+
+  <body>
+    <!-- Start: Header Section -->
+    <% include ../partial/header %>
+    <!-- End: Header Section -->
+
+    <!-- Start: Page Banner -->
+    <section class="page-banner services-banner">
+      <div class="container">
+        <div class="banner-header">
+          <h2>History</h2>
+          <span class="underline center"></span>
+          <p class="lead">Can see user history at book and cd</p>
+        </div>
+        <div class="breadcrumb">
+          <ul>
+            <li><a href="/user">Home</a></li>
+            <li>History</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- End: Page Banner -->
+    <!-- Start: Cart Section -->
+    <div id="content" class="site-content">
+      <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+          <div class="cart-main">
+            <div class="container">
+              <div class="row">
+                <div class="cart-head">
+                  <div class="col-xs-12 col-sm-4 account-option">
+                    <h4><%= user.name %></h4>
+                    <ul>
+                      <li>RFID<strong> <%= user.rfid %></strong></li>
+                      <li class="divider">|</li>
+                      <li>Phone<strong> <%= user.phone %></strong></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 account-option">
+                    <% if(role == "Staff"){%>
+                    <h4><%= user.dept %> Department</h4>
+                    <ul>
+                      <li>
+                        Occupation<strong> <%= user.occupation %></strong>
+                      </li>
+                    </ul>
+                    <%}else{%>
+                    <h4><%= user.major %> Major</h4>
+                    <ul>
+                      <li>Year<strong> <%= user.year %></strong></li>
+                      <li class="divider">|</li>
+                      <li>Roll<strong> <%= user.rollNo %></strong></li>
+                    </ul>
+                    <%}%>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 account-option">
+                    <h4>
+                      <%= (user.status == '1')? "Active": (user.status == '0')?
+                      "Warning" : (user.status == '-2')? "Block":"Inactive" %>
+                    </h4>
+                    <ul>
+                      <li>
+                        Last Borrow<strong>
+                          <%= user.last_borrow_date %></strong
+                        >
+                      </li>
+                      <li class="divider">|</li>
+                      <li>
+                        Last Action<strong>
+                          <%=(user.last_act == "01")? "Return":"Borrow"
+                          %></strong
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="col-md-12">
+                  <div class="page type-page status-publish hentry">
+                    <div class="entry-content">
+                      <div class="woocommerce table-tabs" id="responsiveTabs">
+                        <ul class="nav nav-tabs">
+                          <li class="active">
+                            <b class="arrow-up"></b
+                            ><a data-toggle="tab" href="#sectionA"
+                              >Book History (<%= brecord.length %>)</a
+                            >
+                          </li>
+                          <li>
+                            <b class="arrow-up"></b
+                            ><a data-toggle="tab" href="#sectionB"
+                              >CD History (<%= cdrecord.length %>)</a
+                            >
+                          </li>
+                        </ul>
+                        <div class="tab-content">
+                          <div id="sectionA" class="tab-pane fade in active">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>Book Name</th>
+                                  <th>Borrowed Date</th>
+                                  <th>Returned Date</th>
+                                  <th>Status</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <% for(var i = 0; i < brecord.length; i++){%>
+                                <tr>
+                                  <td>
+                                    <ul>
+                                      <% for(var j= 0; j <
+                                      brecord[i].books.length; j++){%>
+                                      <li>
+                                        <a
+                                          href="/user/bookdetail/<%= brecord[i].books[j].book_id %>"
+                                          ><%= brecord[i].books[j].name%></a
+                                        >
+                                      </li>
+                                      <%}%>
+                                    </ul>
+                                  </td>
+                                  <td><%= brecord[i].borrowed_date %></td>
+                                  <td><%= brecord[i].received_date %></td>
+                                  <td>
+                                    <%= (brecord[i].status == '01')? 'Return':
+                                    'Borrow' %>
+                                  </td>
+                                </tr>
+                                <%}%>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div id="sectionB" class="tab-pane fade in">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>CD Name</th>
+                                  <th>Borrowed Date</th>
+                                  <th>Returned Date</th>
+                                  <th>Status</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <% for(var i = 0; i < cdrecord.length; i++){%>
+                                <tr>
+                                  <td>
+                                    <ul>
+                                      <% for(var j= 0; j <
+                                      cdrecord[i].cds.length; j++){%>
+                                      <li>
+                                        <a
+                                          href="/user/cddetail/<%= cdrecord[i].cds[j].cd_id%>"
+                                          ><%= cdrecord[i].cds[j].name%></a
+                                        >
+                                      </li>
+                                      <%}%>
+                                    </ul>
+                                  </td>
+                                  <td><%= cdrecord[i].borrowed_date %></td>
+                                  <td><%= cdrecord[i].received_date %></td>
+                                  <td>
+                                    <%= (cdrecord[i].status == '01')? 'Return':
+                                    'Borrow' %>
+                                  </td>
+                                </tr>
+                                <%}%>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- .entry-content -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <!-- End: Cart Section -->
+
+    <!-- Start: Social Network -->
+    <% include ../partial/social %>
+    <!-- End: Social Network -->
+
+    <!-- Start: Footer -->
+    <% include ../partial/footer %>
+    <!-- End: Footer -->
+
+    <!-- jQuery Latest Version 1.x -->
+    <% include ../partial/script %>
+  </body>
+</html>

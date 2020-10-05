@@ -45,7 +45,11 @@
                   <%}else{%> <% for(var i = 0; i < tbook.length; i++){%>
                   <div class="team-member">
                     <figure>
-                      <img src="<%= tbook[i].imgUrl%>" alt="images" />
+                      <img
+                        src="<%= tbook[i].imgUrl%>"
+                        alt="images"
+                        style="width: 390px; height: 290px"
+                      />
                     </figure>
                     <div class="content-block">
                       <div class="member-info">
@@ -190,7 +194,11 @@
                   <%}else{%> <% for(var i = 0; i < tcd.length; i++){%>
                   <div class="team-member">
                     <figure>
-                      <img src="<%= tcd[i].imgUrl%>" alt="images" />
+                      <img
+                        src="<%= tcd[i].imgUrl%>"
+                        alt="images"
+                        style="width: 390px; height: 290px"
+                      />
                     </figure>
                     <div class="content-block">
                       <div class="member-info">
@@ -256,7 +264,7 @@
     <!-- End: Contact Us Section -->
 
     <!-- Start: Social Network -->
-    <% include ../partial/social %>
+    <!-- <% include ../partial/social %> -->
     <!-- End: Social Network -->
 
     <!-- Start: Footer -->

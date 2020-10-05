@@ -115,4 +115,21 @@
 
     <% include ../partial/script %>
   </body>
+  <script src="/javascripts/js.cookie.min.js"></script>
+  <script>
+    $(function () {
+      $("#rememberme").click(function () {
+        if ($("#rememberme").prop("checked") == true) {
+          Cookies.set("stuRfid", $("#rfid").val());
+        } else {
+          Cookies.remove("stuRfid");
+        }
+      });
+      if (Cookies.get("stuRfid")) {
+        $("#rfid").val(Cookies.get("stuRfid"));
+        $("#rfid").focus();
+        $("#rememberme").prop("checked", true);
+      }
+    });
+  </script>
 </html>

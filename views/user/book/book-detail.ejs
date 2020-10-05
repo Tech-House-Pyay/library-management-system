@@ -46,15 +46,10 @@
                   <div class="container">
                     <div class="filter-box">
                       <h3>What are you looking for at the library?</h3>
-                      <form
-                        action="http://libraria.demo.presstigers.com/index.html"
-                        method="get"
-                      >
-                        <div class="col-md-4 col-sm-6">
+                      <form action="/user/booklist" method="post" name="frm">
+                        <input type="hidden" name="currpage" />
+                        <div class="col-md-5 col-sm-6">
                           <div class="form-group">
-                            <label class="sr-only" for="keywords"
-                              >Search by Keyword</label
-                            >
                             <input
                               class="form-control"
                               placeholder="Search by Keyword"
@@ -64,45 +59,22 @@
                             />
                           </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
+            
+                        <div class="col-md-5 col-sm-6">
                           <div class="form-group">
-                            <select
-                              name="catalog"
-                              id="catalog"
-                              class="form-control"
-                            >
-                              <option>Search the Catalog</option>
-                              <option>Catalog 01</option>
-                              <option>Catalog 02</option>
-                              <option>Catalog 03</option>
-                              <option>Catalog 04</option>
-                              <option>Catalog 05</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                          <div class="form-group">
-                            <select
-                              name="category"
-                              id="category"
-                              class="form-control"
-                            >
-                              <option>All Categories</option>
-                              <option>Category 01</option>
-                              <option>Category 02</option>
-                              <option>Category 03</option>
-                              <option>Category 04</option>
-                              <option>Category 05</option>
+                            <select name="category" id="category" class="form-control">
+                              <option value="">All Categories</option>
+                              <% for( var i = 0; i < category.length; i++){%>
+                              <option value="<%= category[i]._id %>">
+                                <%= category[i]._id %>
+                              </option>
+                              <%}%>
                             </select>
                           </div>
                         </div>
                         <div class="col-md-2 col-sm-6">
                           <div class="form-group">
-                            <input
-                              class="form-control"
-                              type="submit"
-                              value="Search"
-                            />
+                            <input class="form-control" type="submit" value="Search" />
                           </div>
                         </div>
                       </form>
@@ -115,12 +87,12 @@
                 <div class="detailed-box">
                   <div class="col-xs-12 col-sm-5 col-md-3">
                     <div class="post-thumbnail">
-                      <div class="book-list-icon blue-icon"></div>
+                      <div class="book-list-icon yellow-icon"></div>
                       <img src="<%= book.imgUrl %>" alt="Book Image" />
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-7 col-md-6">
-                    <div class="post-center-content">
+                    <div class="post-center-content col-md-12">
                       <h2><%= book.name %></h2>
                       <p><strong>Author:</strong> <%= book.author_name %></p>
                       <p><strong>Barcode:</strong> <%= book.barcode %></p>
@@ -149,7 +121,7 @@
                       <p><strong>Format:</strong> Book</p>
                       <p><strong>Main Category</strong> <%= book.mainCat %></p>
                       <p><strong>Sub Category:</strong> <%= book.subCat %></p>
-                      <div class="actions">
+                      <!-- <div class="actions" style="pointer-events: none;">
                         <ul>
                           <li>
                             <a
@@ -224,12 +196,12 @@
                             </a>
                           </li>
                         </ul>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-3">
                     <div class="post-right-content">
-                      <h4>Available now</h4>
+                      <h4><%= (book.copy < 1)? 'Not Available ':'Available now' %></h4>
                       <p><strong>Total Copies:</strong> <%= book.copy %></p>
                       <p>
                         <strong>Borrowing Duration</strong> <%= book.rTime %>
@@ -237,13 +209,12 @@
                       </p>
                       <p><strong>Shelf:</strong> <%= book.shelf %></p>
                       <p><strong>Borrowed Count</strong> <%= book.count %></p>
-
-                      <a href="#." class="btn btn-dark-gray"
-                        >Find Similar Main Category</a
+                      <form action="/user/booklist" method="post">
+                        <input type="hidden" name="category" value="<%= book.mainCat %>">
+                      <button type="submit"  class="btn btn-dark-gray"
+                        >Find Similar Main Category</button
                       >
-                      <a href="#." class="btn btn-dark-gray"
-                        >Find Similar Sub Category</a
-                      >
+                    </form>
                     </div>
                   </div>
                   <div class="clearfix"></div>
@@ -271,67 +242,21 @@
                       <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th>Library Name</th>
+                            <th>Book Name</th>
                             <th>Shelf Number</th>
                             <th>Material Type</th>
                             <th>Status</th>
                           </tr>
                         </thead>
                         <tbody>
+                          <% for(var i = 0; i < records.length; i++){%>
                           <tr>
-                            <td>Oak Park Public Library Main Branch</td>
-                            <td>B PURMORT</td>
+                            <td><%= book.name %></td>
+                            <td><%= book.shelf %></td>
                             <td>Book</td>
-                            <td>In Processing</td>
+                            <td><%= (records[i].status == '01')? 'Return': 'Borrow' %></td>
                           </tr>
-                          <tr>
-                            <td>Bedford Park Public Library District</td>
-                            <td>616.99 PUR</td>
-                            <td>Book</td>
-                            <td>Due 8/24/16</td>
-                          </tr>
-                          <tr>
-                            <td>Blue Island Public Library</td>
-                            <td>BIO PUR</td>
-                            <td>eBook</td>
-                            <td>Due 8/24/16</td>
-                          </tr>
-                          <tr>
-                            <td>Bridgeview Public Library</td>
-                            <td>B PUR</td>
-                            <td>DVD</td>
-                            <td>In Processing</td>
-                          </tr>
-                          <tr>
-                            <td>Eisenhower Public Library District</td>
-                            <td>616.994 PUR</td>
-                            <td>Magazine</td>
-                            <td>Checked In</td>
-                          </tr>
-                          <tr>
-                            <td>Forest Park Public Library</td>
-                            <td>BIO PURMORT</td>
-                            <td>Magazine</td>
-                            <td>Checked In</td>
-                          </tr>
-                          <tr>
-                            <td>Hinsdale Public Library</td>
-                            <td>B PUR</td>
-                            <td>Audio</td>
-                            <td>Checked In</td>
-                          </tr>
-                          <tr>
-                            <td>Oak Park Public Library Maze Branch</td>
-                            <td>616.99 PUR</td>
-                            <td>Audio</td>
-                            <td>Due 9/10/16</td>
-                          </tr>
-                          <tr>
-                            <td>River Grove Public Library District</td>
-                            <td>616.994 PURMORT</td>
-                            <td>Book</td>
-                            <td>Due 9/10/16</td>
-                          </tr>
+                        <%}%>
                         </tbody>
                       </table>
                     </div>
@@ -763,5 +688,27 @@
       $('#r2').attr("style","width:"+avg[1]+"%");
       $('#r1').attr("style","width:"+avg[0]+"%");
     console.log('///',avg);
+
+    var categories = [<%- categories%>];
+    console.log(categories);
+
+    addOptions('mainCat', categories);
+    $("#mainCat").on('change', function(){
+        var sub = $.grep( categories, function( n, i ) {
+          return n.mainCat == $("#mainCat").val();
+        });
+        addOptions('subCat', sub);
+    });
+
+    function addOptions(id, arr){
+        $("#"+id).children().remove();
+        for(var idx in arr){
+            if(idx == 0) $("#"+id).append(new Option('Select '+((id == 'mainCat')? "Main Category": "Sub Category"), ''));
+            if(idx == 0 || arr[idx][id] != arr[idx-1][id]){
+                $("#"+id).append(new Option(((id == 'mainCat')? arr[idx][id]:arr[idx][id]),arr[idx][id]));
+
+            }
+        }
+    }
   </script>
 </html>

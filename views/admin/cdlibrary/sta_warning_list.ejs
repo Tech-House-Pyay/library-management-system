@@ -4,6 +4,7 @@
     <!-- Required meta tags -->
     <% include ../../partialA/head %>
     <link rel="stylesheet" href="/stylesheets/jquery.DataTables.css" />
+    <link rel="stylesheet" href="/stylesheets/buttons.dataTables.min.css" />
     <link rel="stylesheet" href="/stylesheets/sweetalert/sweetalert.css" />
   </head>
   <body>
@@ -94,14 +95,15 @@
   <script src="/javascripts/jquery-3.5.1.js
   "></script>
   <script src="/javascripts/jquery.DataTables.js"></script>
+  <script src="/javascripts/dataTables.buttons.min.js"></script>
+  <script src="/javascripts/buttons.print.min.js"></script>
   <script src="/javascripts/sweetalert/sweetalert.min.js"></script>
   <script>
     $(document).ready(function () {
       $("#example").DataTable({
-        paging: false,
-        ordering: false,
-        info: false,
+        dom: "Bfrtip",
         ordering: true,
+        buttons: ["print"],
       });
     });
     function checkupdate() {
