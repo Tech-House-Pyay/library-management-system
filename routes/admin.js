@@ -231,33 +231,36 @@ router.get("/cdlist", auth, function (req, res) {
 });
 
 router.get("/disableB/:id", function (req, res) {
-  Book.findByIdAndUpdate(req.params.id, { $set: { status: "10" } }, function (
-    err,
-    rtn
-  ) {
-    if (err) throw err;
-    res.redirect("/admin/booklist");
-  });
+  Book.findByIdAndUpdate(
+    req.params.id,
+    { $set: { status: "10" } },
+    function (err, rtn) {
+      if (err) throw err;
+      res.redirect("/admin/booklist");
+    }
+  );
 });
 
 router.get("/disableCD/:id", function (req, res) {
-  Cd.findByIdAndUpdate(req.params.id, { $set: { status: "10" } }, function (
-    err,
-    rtn
-  ) {
-    if (err) throw err;
-    res.redirect("/admin/cdlist");
-  });
+  Cd.findByIdAndUpdate(
+    req.params.id,
+    { $set: { status: "10" } },
+    function (err, rtn) {
+      if (err) throw err;
+      res.redirect("/admin/cdlist");
+    }
+  );
 });
 
 router.get("/activeCD/:id", function (req, res) {
-  Cd.findByIdAndUpdate(req.params.id, { $set: { status: "00" } }, function (
-    err,
-    rtn
-  ) {
-    if (err) throw err;
-    res.redirect("/admin/cdlist");
-  });
+  Cd.findByIdAndUpdate(
+    req.params.id,
+    { $set: { status: "00" } },
+    function (err, rtn) {
+      if (err) throw err;
+      res.redirect("/admin/cdlist");
+    }
+  );
 });
 
 router.get("/addcategory", auth, function (req, res) {
@@ -307,32 +310,32 @@ router.post("/cdcheckAuthSta", auth, function (req, res) {
 router.get("/cdstumember/:id", auth, function (req, res) {
   Student.findById(req.params.id, function (err, rtn) {
     if (err) throw err;
-    CdRecord.findOne({ student_id: rtn._id, status: rtn.last_act }, function (
-      err2,
-      rtn2
-    ) {
-      if (err2) throw err2;
-      res.render("admin/cdlibrary/stu-member-detail", {
-        stu: rtn,
-        record: rtn2 == null ? "0" : rtn2,
-      });
-    });
+    CdRecord.findOne(
+      { student_id: rtn._id, status: rtn.last_act },
+      function (err2, rtn2) {
+        if (err2) throw err2;
+        res.render("admin/cdlibrary/stu-member-detail", {
+          stu: rtn,
+          record: rtn2 == null ? "0" : rtn2,
+        });
+      }
+    );
   });
 });
 
 router.get("/cdstamember/:id", auth, function (req, res) {
   Staff.findById(req.params.id, function (err, rtn) {
     if (err) throw err;
-    CdRecord.findOne({ staff_id: rtn._id, status: rtn.last_act }, function (
-      err2,
-      rtn2
-    ) {
-      if (err2) throw err2;
-      res.render("admin/cdlibrary/sta-member-detail", {
-        sta: rtn,
-        record: rtn2 == null ? "0" : rtn2,
-      });
-    });
+    CdRecord.findOne(
+      { staff_id: rtn._id, status: rtn.last_act },
+      function (err2, rtn2) {
+        if (err2) throw err2;
+        res.render("admin/cdlibrary/sta-member-detail", {
+          sta: rtn,
+          record: rtn2 == null ? "0" : rtn2,
+        });
+      }
+    );
   });
 });
 
@@ -857,32 +860,32 @@ router.post("/checkAuthSta", auth, function (req, res) {
 router.get("/stumember/:id", auth, function (req, res) {
   Student.findById(req.params.id, function (err, rtn) {
     if (err) throw err;
-    Record.findOne({ student_id: rtn._id, status: rtn.last_act }, function (
-      err2,
-      rtn2
-    ) {
-      if (err2) throw err2;
-      res.render("admin/library/stu-member-detail", {
-        stu: rtn,
-        record: rtn2 == null ? "0" : rtn2,
-      });
-    });
+    Record.findOne(
+      { student_id: rtn._id, status: rtn.last_act },
+      function (err2, rtn2) {
+        if (err2) throw err2;
+        res.render("admin/library/stu-member-detail", {
+          stu: rtn,
+          record: rtn2 == null ? "0" : rtn2,
+        });
+      }
+    );
   });
 });
 
 router.get("/stamember/:id", auth, function (req, res) {
   Staff.findById(req.params.id, function (err, rtn) {
     if (err) throw err;
-    Record.findOne({ staff_id: rtn._id, status: rtn.last_act }, function (
-      err2,
-      rtn2
-    ) {
-      if (err2) throw err2;
-      res.render("admin/library/sta-member-detail", {
-        sta: rtn,
-        record: rtn2 == null ? "0" : rtn2,
-      });
-    });
+    Record.findOne(
+      { staff_id: rtn._id, status: rtn.last_act },
+      function (err2, rtn2) {
+        if (err2) throw err2;
+        res.render("admin/library/sta-member-detail", {
+          sta: rtn,
+          record: rtn2 == null ? "0" : rtn2,
+        });
+      }
+    );
   });
 });
 
@@ -1427,23 +1430,25 @@ router.post("/signin", function (req, res) {
 });
 
 router.get("/staInactive/:id", auth, function (req, res) {
-  Staff.findByIdAndUpdate(req.params.id, { $set: { status: -1 } }, function (
-    err,
-    rtn
-  ) {
-    if (err) throw err;
-    res.redirect("/admin/staffMList");
-  });
+  Staff.findByIdAndUpdate(
+    req.params.id,
+    { $set: { status: -1 } },
+    function (err, rtn) {
+      if (err) throw err;
+      res.redirect("/admin/staffMList");
+    }
+  );
 });
 
 router.get("/stuInactive/:id", auth, function (req, res) {
-  Student.findByIdAndUpdate(req.params.id, { $set: { status: -1 } }, function (
-    err,
-    rtn
-  ) {
-    if (err) throw err;
-    res.redirect("/admin/studentMList");
-  });
+  Student.findByIdAndUpdate(
+    req.params.id,
+    { $set: { status: -1 } },
+    function (err, rtn) {
+      if (err) throw err;
+      res.redirect("/admin/studentMList");
+    }
+  );
 });
 
 router.post("/checkMemStu", auth, function (req, res) {
@@ -1630,6 +1635,21 @@ router.get("/logout", function (req, res) {
   req.session.destroy(function (err, rtn) {
     if (err) throw err;
     res.redirect("/");
+  });
+});
+
+router.get("/barcode", auth, function (req, res) {
+  res.render("admin/book/barcode");
+});
+
+router.post("/barCodeCh", (req, res) => {
+  Book.find({ barcode: req.body.no }, (err, rtn) => {
+    if (err) throw err;
+    if (rtn.length == 0) {
+      res.json({ status: true });
+    } else {
+      res.json({ status: false });
+    }
   });
 });
 
